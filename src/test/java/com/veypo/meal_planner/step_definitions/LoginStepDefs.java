@@ -12,27 +12,28 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginStepDefs {
+
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("login_page_url"));
+        Driver.getDriver().get(ConfigurationReader.getProperty("login.page.url"));
     }
 
     @When("user logins with valid credentials")
     public void user_logins_with_valid_credentials() {
         loginPage.login_with_click(
-                ConfigurationReader.getProperty("valid_email"),
-                ConfigurationReader.getProperty("valid_password"));
+                ConfigurationReader.getProperty("user1.email.valid"),
+                ConfigurationReader.getProperty("user1.password.valid"));
     }
 
     @When("user enters valid credentials")
     public void user_enters_valid_credentials() {
         loginPage.login(
-                ConfigurationReader.getProperty("valid_email"),
-                ConfigurationReader.getProperty("valid_password"));
+                ConfigurationReader.getProperty("user1.email.valid"),
+                ConfigurationReader.getProperty("user1.password.valid"));
     }
 
     @Then("login button is displayed and enabled and user clicks it")
@@ -47,7 +48,7 @@ public class LoginStepDefs {
         // since actualCurrentUrl = https://meal2cook.dev/ --> gives a single slash at the end of url during the test,
         // and expectedCurrentUrl (which we read from configuration.properties file) does NOT have a single slash
         // at the end of url, we concatenate a single slash at the end:
-        String expectedCurrentUrl = ConfigurationReader.getProperty("env") + "/";
+        String expectedCurrentUrl = ConfigurationReader.getProperty("root.url") + "/";
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
         //-----------------------------------------------------------------------------
         //  Example:
@@ -79,8 +80,8 @@ public class LoginStepDefs {
     @When("user tries to login with invalid credentials")
     public void user_tries_to_login_with_invalid_credentials() {
         loginPage.login(
-                ConfigurationReader.getProperty("invalid_email"),
-                ConfigurationReader.getProperty("invalid_password"));
+                ConfigurationReader.getProperty("user2.email.invalid"),
+                ConfigurationReader.getProperty("user2.password.invalid"));
     }
 
     @Then("alert message {string} is displayed")
@@ -93,8 +94,8 @@ public class LoginStepDefs {
     @When("user enters incorrect email address format")
     public void user_enters_incorrect_email_address_format() {
         loginPage.login(
-                ConfigurationReader.getProperty("incorrect_email_format"),
-                ConfigurationReader.getProperty("valid_password"));
+                ConfigurationReader.getProperty("user1.email.incorrect.format"),
+                ConfigurationReader.getProperty("user1.password.valid"));
     }
 
     @Then("error message {string} is displayed")
@@ -109,3 +110,5 @@ public class LoginStepDefs {
         Assert.assertFalse(loginPage.loginBtn.isEnabled());
     }
 }
+
+

@@ -10,10 +10,11 @@ public class ConfigurationReader {
     private static Properties properties;
 
     static {
+        properties = new Properties();
+
         try {
             String path = "configuration.properties";
             FileInputStream input = new FileInputStream(path);
-            properties = new Properties();
             properties.load(input);
 
             input.close();
