@@ -115,6 +115,3 @@ public class LoginStepDefs {
         Assert.assertFalse(loginPage.loginBtn.isEnabled());
     }
 }
-
-
-

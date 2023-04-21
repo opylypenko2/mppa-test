@@ -47,4 +47,3 @@ public class ConfigurationReader {
         return value;
     }
 }
-
