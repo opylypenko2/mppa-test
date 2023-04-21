@@ -1,5 +1,10 @@
 mppa-test project
 
+HOW TO RUN THE PROJECT
+
+--------------------------------------------------------------------------------------------
+RUN FROM CUKES RUNNER
+--------------------------------------------------------------------------------------------
 - To run the whole feature file (all scenarios) --> place tags `@wip @ui` on top of Feature:
    `@wip @ui
     Feature: Login function`
@@ -11,3 +16,7 @@ mppa-test project
 
 - To run a single Scenario --> place tags `@wip @ui` on top of Scenario you'd like to run
 - Trigger test execution from CukesRunner.java class --> make sure `dryRun = false, tags = "@wip and @ui"`, then run from CukesRunner
+-----------------------------------------------------------------------------------------------------
+RUN FROM COMMAND LINE
+----------------------------------------------------------------------------------------------------- 
+mvn test   --> all tests will be executed

@@ -19,7 +19,10 @@ public class LoginStepDefs {
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("login.page.url"));
+        String url = ConfigurationReader.getProperty("root.url")
+                + ConfigurationReader.getProperty("login.page.path");
+
+        Driver.getDriver().get(url);
     }
 
     @When("user logins with valid credentials")
@@ -36,10 +39,18 @@ public class LoginStepDefs {
                 ConfigurationReader.getProperty("user1.password.valid"));
     }
 
-    @Then("login button is displayed and enabled and user clicks it")
-    public void login_button_is_displayed_and_enabled_and_user_clicks_it() {
+    @Then("login button is displayed")
+    public void login_button_is_displayed() {
         Assert.assertTrue(loginPage.loginBtn.isDisplayed());
+    }
+
+    @Then("login button is enabled")
+    public void login_button_is_enabled() {
         Assert.assertTrue(loginPage.loginBtn.isEnabled());
+    }
+
+    @Then("user clicks it")
+    public void user_clicks_it() {
         loginPage.loginBtn.click();
     }
 
@@ -66,19 +77,13 @@ public class LoginStepDefs {
         Assert.assertEquals(expectedCurrentUrl, actualCurrentUrl);
     }
 
-    @Then("the title is {string}")
-    public void the_title_is(String expectedTitle) {
-        String actualTitle = Driver.getDriver().getTitle();
-        Assert.assertEquals(expectedTitle, actualTitle);
-    }
-
     @Then("the account dropdown is displayed")
     public void the_account_dropdown_is_displayed() {
         Assert.assertTrue(homePage.accountDropdown.isDisplayed());
     }
 
-    @When("user tries to login with invalid credentials")
-    public void user_tries_to_login_with_invalid_credentials() {
+    @When("user enters invalid credentials")
+    public void user_enters_invalid_credentials() {
         loginPage.login(
                 ConfigurationReader.getProperty("user2.email.invalid"),
                 ConfigurationReader.getProperty("user2.password.invalid"));
@@ -98,8 +103,8 @@ public class LoginStepDefs {
                 ConfigurationReader.getProperty("user1.password.valid"));
     }
 
-    @Then("error message {string} is displayed")
-    public void error_message_is_displayed(String expectedErrorMsg) {
+    @Then("field error message {string} is displayed")
+    public void field_error_message_is_displayed(String expectedErrorMsg) {
         Assert.assertTrue(loginPage.emailErrorMsg.isDisplayed());
         String actualErrorMsg = loginPage.emailErrorMsg.getText();
         Assert.assertEquals(expectedErrorMsg, actualErrorMsg);
@@ -110,5 +115,6 @@ public class LoginStepDefs {
         Assert.assertFalse(loginPage.loginBtn.isEnabled());
     }
 }
+
 
 

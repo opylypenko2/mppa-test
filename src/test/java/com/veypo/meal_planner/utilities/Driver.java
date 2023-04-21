@@ -17,13 +17,14 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
-    private Driver() {
-    }
     // InheritableThreadLocal  --> this is like a container, bag, pool.
     // in this pool we can have separate objects for each thread
     // for each thread, in InheritableThreadLocal we can have separate object for that thread
     // driver class will provide separate webdriver object per thread
     private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
+
+    private Driver() {
+    }
 
     public static WebDriver getDriver() {
         //if this thread doesn't have driver - create it and add to pool
@@ -38,7 +39,7 @@ public class Driver {
                     try {
                         // assign your grid server address
                         String gridAddress = "174.129.57.20";
-                        URL url = new URL("http://"+ gridAddress + ":4444/wd/hub");
+                        URL url = new URL("http://" + gridAddress + ":4444/wd/hub");
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName("chrome");
                         driverPool.set(new RemoteWebDriver(url, desiredCapabilities));
@@ -50,7 +51,7 @@ public class Driver {
 
                 case "headless-chrome":
                     WebDriverManager.chromedriver().setup();
-                    ChromeOptions option=new ChromeOptions();
+                    ChromeOptions option = new ChromeOptions();
                     option.setHeadless(true);
                     driverPool.set(new ChromeDriver(option));
                     driverPool.get().manage().window().maximize();

@@ -31,7 +31,7 @@ public class Hooks {
         // we put the logic that should apply to every scenario
         Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Driver.getDriver().manage().window().maximize();
-//        Driver.getDriver().get(ConfigurationReader.getProperty("env"));
+//        Driver.getDriver().get(ConfigurationReader.getProperty("root.url"));
     }
 
     @After("@ui")
