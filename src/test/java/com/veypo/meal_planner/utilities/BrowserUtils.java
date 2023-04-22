@@ -42,7 +42,6 @@ public class BrowserUtils {
     // BrowserUtils.verifyTitle(driver,"Google")
     public static void verifyTitle(WebDriver driver, String expectedTitle) {
         String actualTitle = driver.getTitle();
-
         Assert.assertEquals(expectedTitle, actualTitle);
     }
 
@@ -482,4 +481,3 @@ public class BrowserUtils {
         new WebDriverWait(Driver.getDriver(), time).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }
-

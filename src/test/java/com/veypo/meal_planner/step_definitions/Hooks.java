@@ -1,5 +1,6 @@
 package com.veypo.meal_planner.step_definitions;
 
+import com.veypo.meal_planner.utilities.ConfigurationReader;
 import com.veypo.meal_planner.utilities.DB_Util;
 import com.veypo.meal_planner.utilities.Driver;
 import io.cucumber.java.After;
@@ -27,8 +28,10 @@ public class Hooks {
     // For UI
     @Before("@ui")
     public void setUp() {
-        // we put a logic that should apply to every scenario
+        // we put the logic that should apply to every scenario
         Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Driver.getDriver().manage().window().maximize();
+//        Driver.getDriver().get(ConfigurationReader.getProperty("root.url"));
     }
 
     @After("@ui")
