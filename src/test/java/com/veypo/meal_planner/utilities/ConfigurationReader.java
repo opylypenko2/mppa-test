@@ -9,29 +9,32 @@ import java.util.Properties;
 
 public class ConfigurationReader {
 
-    private static final String DEFAULT_PROPERTIES_FILE = "configuration.properties";
-    private static final String ADDITIONAL_PROPERTIES_FILE = "configuration-local.properties";
+    private static final String PROPERTIES_FILE_DEFAULT = "configuration.properties";
+    private static final String PROPERTIES_FILE_LOCAL = "configuration-local.properties";
     private static Properties properties;
 
     static {
         properties = new Properties();
+
         try {
-            // Load default properties file
-            FileInputStream inputStream = new FileInputStream(DEFAULT_PROPERTIES_FILE);
+            // ***** Load default properties file
             // FileInputStream(fileName) --> Creates a FileInputStream by opening a
             // connection to an actual file, the file named by the path name `name`
             // in the file system.
-            properties.load(inputStream);
-            // load(input) --> Reads a property list (key and element pairs) from the input byte stream.
-            inputStream.close();
-            // close() --> Closes this file input stream and releases
-            // any system resources associated with the stream.
+            FileInputStream defaultStream = new FileInputStream(PROPERTIES_FILE_DEFAULT);
+            try {
+                // load(input) --> Reads a property list (key and element pairs) from the input byte stream.
+                properties.load(defaultStream);
+            } finally {
+                // close() --> Closes this file input stream and releases
+                // any system resources associated with the stream.
+                defaultStream.close();
+            }
 
-            // Load additional properties file
-            inputStream = new FileInputStream(ADDITIONAL_PROPERTIES_FILE);
-            properties.load(inputStream);
-            inputStream.close();
-
+            // ***** Load additional properties file
+            try (FileInputStream localStream = new FileInputStream(PROPERTIES_FILE_LOCAL)) {
+                properties.load(localStream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

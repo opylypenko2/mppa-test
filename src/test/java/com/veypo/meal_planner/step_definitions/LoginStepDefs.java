@@ -79,7 +79,7 @@ public class LoginStepDefs {
 
     @Then("the account dropdown is displayed")
     public void the_account_dropdown_is_displayed() {
-        Assert.assertTrue(homePage.accountDropdown.isDisplayed());
+        Assert.assertTrue(homePage.accountMenu.isDisplayed());
     }
 
     @When("user enters invalid credentials")

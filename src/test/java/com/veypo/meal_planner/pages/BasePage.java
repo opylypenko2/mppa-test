@@ -8,17 +8,17 @@ import org.openqa.selenium.support.PageFactory;
 public abstract class BasePage {
 
     @FindBy(xpath = "//span[normalize-space(text())='Meal Planner']")
-    public WebElement appNameHeader;
+    public WebElement appName;
     @FindBy(xpath = "//a[.='My Recipes']")
-    public WebElement myRecipes;
+    public WebElement myRecipesModule;
     @FindBy(xpath = "//a[.='Developers']")
-    public WebElement developers;
+    public WebElement developersModule;
     @FindBy(xpath = "//a[.='Log in']")
-    public WebElement login;
+    public WebElement loginLink;
     @FindBy(xpath = "//span[.='Sign up']")
-    public WebElement signUpBtn;
+    public WebElement signUpLink;
     @FindBy(xpath = "//h2[.='Find Meal Planner on']")
-    public WebElement footer;
+    public WebElement socialSectionTitle;
     @FindBy(xpath = "//img[@alt='Instagram logo']")
     public WebElement instagramLogo;
     @FindBy(xpath = "//img[@alt='Twitter logo']")
