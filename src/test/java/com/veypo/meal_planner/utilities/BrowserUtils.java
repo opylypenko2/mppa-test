@@ -34,16 +34,102 @@ public class BrowserUtils {
         }
     }
 
-    //Method info:
-    //• Name: verifyTitle()
-    //• Return type: void
-    //• Arg1: WebDriver
-    //• Arg2: String expectedTitle
-    // BrowserUtils.verifyTitle(driver,"Google")
-    public static void verifyTitle(WebDriver driver, String expectedTitle) {
-        String actualTitle = driver.getTitle();
+    public static void verifyTitle(String expectedTitle) {
+        String actualTitle = Driver.getDriver().getTitle();
         Assert.assertEquals(expectedTitle, actualTitle);
     }
+
+    public static void verifyText(String expected, WebElement webElement) {
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+//        wait.until(ExpectedConditions.visibilityOf(webElement));
+        Assert.assertTrue(webElement.isDisplayed());
+        Assert.assertEquals(expected, webElement.getText());
+    }
+
+    public static void verifyCurrentUrl(WebElement webElement, String expectedCurrentUrl) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+        webElement.click();
+        wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
+        String actualCurrentUrl = Driver.getDriver().getCurrentUrl();
+        Assert.assertEquals(expectedCurrentUrl, actualCurrentUrl);
+    }
+
+    /**
+     * return a list of string from a list of elements
+     *
+     * @param list of webElements
+     * @return list of string
+     */
+    public static List<String> getElementsText(List<WebElement> list) {
+        List<String> elemTexts = new ArrayList<>();
+        for (WebElement el : list) {
+            Assert.assertTrue(el.isDisplayed());
+            elemTexts.add(el.getText());
+        }
+        return elemTexts;
+    }
+
+    /**
+     * Extracts text from list of elements matching the provided locator into new List<String>
+     *
+     * @param locator
+     * @return list of strings
+     */
+    public static List<String> getElementsText(By locator) {
+        List<WebElement> elems = Driver.getDriver().findElements(locator);
+        List<String> elemTexts = new ArrayList<>();
+
+        for (WebElement el : elems) {
+            elemTexts.add(el.getText());
+        }
+        return elemTexts;
+    }
+
+    /**
+     * return a list of string from a list of elements
+     *
+     * @param list of webElements, String
+     * @return list of string
+     */
+    public static List<String> getElementsAttribute(List<WebElement> list, String attribute) {
+        List<String> elementAttributes = new ArrayList<>();
+
+        for (WebElement el : list) {
+            Assert.assertTrue(el.isDisplayed());
+            elementAttributes.add(el.getAttribute(attribute));
+        }
+        return elementAttributes;
+    }
+
+    public static void getWindowHandlesAndVerifyNewWindowUrl(WebElement webElement, String expectedUrl) {
+        String parentWindowHandle = Driver.getDriver().getWindowHandle();
+        webElement.click();
+        Set<String> windowHandles = Driver.getDriver().getWindowHandles();
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+
+        for (String windowHandle : windowHandles) {
+            if (!windowHandle.equals(parentWindowHandle)) {
+                Driver.getDriver().switchTo().window(windowHandle);
+                wait.until(ExpectedConditions.urlToBe(expectedUrl));
+                Assert.assertEquals(expectedUrl, Driver.getDriver().getCurrentUrl());
+                break;
+            }
+        }
+        // Switch back to the parent window
+        Driver.getDriver().switchTo().window(parentWindowHandle);
+//--------------------------------------------------------------------------------
+//  Another way:
+//        String[] allWindowHandles =
+//        windowHandles.toArray(new String[windowHandles.size()]);
+//        String newWindow = allWindowHandles[allWindowHandles.length - 1];
+//        Driver.getDriver().switchTo().window(newWindow);
+//        wait.until(ExpectedConditions.urlToBe(expectedUrl));
+//        Assert.assertEquals(expectedUrl, Driver.getDriver().getCurrentUrl());
+
+    // Switch back to the parent window
+//        Driver.getDriver().switchTo().window(parentWindowHandle);
+//---------------------------------------------------------------------------------
+}
 
     public static void waitForInvisibilityOf(WebElement element) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 15);
@@ -101,7 +187,7 @@ public class BrowserUtils {
     /*
     This method accepts 3 arguments.
     Arg1: webdriver
-    Arg2: expectedInUrl : for verify if the url contains given String.
+    Arg2: expectedInUrl : to verify if the url contains given String.
         - If condition matches, will break loop.
     Arg3: expectedInTitle to be compared against actualTitle
      */
@@ -146,36 +232,6 @@ public class BrowserUtils {
     public static void hover(WebElement element) {
         Actions actions = new Actions(Driver.getDriver());
         actions.moveToElement(element).perform();
-    }
-
-    /**
-     * return a list of string from a list of elements
-     *
-     * @param list of webElements
-     * @return list of string
-     */
-    public static List<String> getElementsText(List<WebElement> list) {
-        List<String> elemTexts = new ArrayList<>();
-        for (WebElement el : list) {
-            elemTexts.add(el.getText());
-        }
-        return elemTexts;
-    }
-
-    /**
-     * Extracts text from list of elements matching the provided locator into new List<String>
-     *
-     * @param locator
-     * @return list of strings
-     */
-    public static List<String> getElementsText(By locator) {
-        List<WebElement> elems = Driver.getDriver().findElements(locator);
-        List<String> elemTexts = new ArrayList<>();
-
-        for (WebElement el : elems) {
-            elemTexts.add(el.getText());
-        }
-        return elemTexts;
     }
 
     /**
@@ -376,7 +432,7 @@ public class BrowserUtils {
     }
 
     /**
-     * Highlighs an element by changing its background and border color
+     * Highlights an element by changing its background and border color
      *
      * @param element
      */
