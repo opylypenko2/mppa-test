@@ -13,7 +13,12 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/veypo/meal_planner/step_definitions",
         dryRun = false,
-        tags = "@regression"
+        tags = "@wip and @ui"
 )
 public class CukesRunner {
 }
+
+// tags:
+//  "@wip and @ui"
+//  "@smoke"
+//  "@regression"

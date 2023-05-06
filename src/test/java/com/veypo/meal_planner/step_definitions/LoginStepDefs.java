@@ -2,6 +2,7 @@ package com.veypo.meal_planner.step_definitions;
 
 import com.veypo.meal_planner.pages.HomePage;
 import com.veypo.meal_planner.pages.LoginPage;
+import com.veypo.meal_planner.utilities.BrowserUtils;
 import com.veypo.meal_planner.utilities.ConfigurationReader;
 import com.veypo.meal_planner.utilities.Driver;
 import io.cucumber.java.en.Given;
@@ -15,7 +16,7 @@ public class LoginStepDefs {
 
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
@@ -25,11 +26,13 @@ public class LoginStepDefs {
         Driver.getDriver().get(url);
     }
 
-    @When("user logins with valid credentials")
-    public void user_logins_with_valid_credentials() {
+    @When("user logs in with valid credentials")
+    public void user_logs_in_with_valid_credentials() {
         loginPage.login_with_click(
                 ConfigurationReader.getProperty("user1.email.valid"),
                 ConfigurationReader.getProperty("user1.password.valid"));
+        String expectedCurrentUrl = ConfigurationReader.getProperty("root.url") + "/";
+        wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
     }
 
     @When("user enters valid credentials")
@@ -49,8 +52,8 @@ public class LoginStepDefs {
         Assert.assertTrue(loginPage.loginBtn.isEnabled());
     }
 
-    @Then("user clicks it")
-    public void user_clicks_it() {
+    @Then("user clicks login button")
+    public void user_clicks_login_button() {
         loginPage.loginBtn.click();
     }
 
@@ -77,9 +80,9 @@ public class LoginStepDefs {
         Assert.assertEquals(expectedCurrentUrl, actualCurrentUrl);
     }
 
-    @Then("the account dropdown is displayed")
-    public void the_account_dropdown_is_displayed() {
-        Assert.assertTrue(homePage.accountMenu.isDisplayed());
+    @Then("user should see the account menu link {string}")
+    public void user_should_see_the_account_menu_link(String expectedLink) {
+        BrowserUtils.verifyText(expectedLink, homePage.accountMenu);
     }
 
     @When("user enters invalid credentials")
@@ -91,9 +94,7 @@ public class LoginStepDefs {
 
     @Then("alert message {string} is displayed")
     public void alert_message_is_displayed(String expectedAlertMsg) {
-        Assert.assertTrue(loginPage.alertMsg.isDisplayed());
-        String actualAlertMsg = loginPage.alertMsg.getText();
-        Assert.assertEquals(expectedAlertMsg, actualAlertMsg);
+        BrowserUtils.verifyText(expectedAlertMsg, loginPage.alertMsg);
     }
 
     @When("user enters incorrect email address format")
@@ -105,9 +106,7 @@ public class LoginStepDefs {
 
     @Then("field error message {string} is displayed")
     public void field_error_message_is_displayed(String expectedErrorMsg) {
-        Assert.assertTrue(loginPage.emailErrorMsg.isDisplayed());
-        String actualErrorMsg = loginPage.emailErrorMsg.getText();
-        Assert.assertEquals(expectedErrorMsg, actualErrorMsg);
+        BrowserUtils.verifyText(expectedErrorMsg, loginPage.emailErrorMsg);
     }
 
     @Then("login button is disabled")

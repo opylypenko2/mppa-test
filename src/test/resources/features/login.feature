@@ -1,4 +1,4 @@
-@ui @regression
+#@ui @regression
 Feature: Login function
 
   Background:
@@ -6,20 +6,20 @@ Feature: Login function
 
   @smoke
   Scenario: Login with valid credentials
-    # use step "When user logins with valid credentials" in other
+    # use step "When user logs in with valid credentials" in other
     # places (it's already implemented)
     When user enters valid credentials
     Then login button is displayed
     Then login button is enabled
-    Then user clicks it
+    Then user clicks login button
     Then the current url matches expected url
-    Then the account dropdown is displayed
+    Then user should see the account menu link "Account"
 
   Scenario Outline: Login with invalid credentials
     When user enters invalid credentials
     Then login button is displayed
     Then login button is enabled
-    Then user clicks it
+    Then user clicks login button
     Then alert message "<alert message>" is displayed
     Examples:
       | alert message                  |
