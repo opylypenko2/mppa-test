@@ -12,21 +12,16 @@ public abstract class BasePage {
     @FindBy(xpath = "//span[normalize-space(text())='Meal Planner']")
     public WebElement appName;
 
-    @FindBy(xpath = "//a[normalize-space(text())='My Recipes']")
+    @FindBy(xpath = "//span[normalize-space(text())='My Recipes']")
     public WebElement myRecipesLink;
 
-    @FindBy(xpath = "//a[normalize-space(text())='Developers']")
-    public WebElement developersLink;
-
-    @FindBy(xpath = "//a[normalize-space(text())='Log in']")
+    @FindBy(xpath = "//span[normalize-space(text())='Log in']")
     public WebElement loginLink;
 
     @FindBy(xpath = "//span[normalize-space(text())='Sign up']")
     public WebElement signUpLink;
 
-//    @FindBy(xpath = "//div[@class='mat-menu-trigger']/preceding-sibling::a")
-//    public List<WebElement> headerLinks;
-    @FindBy(xpath = "//div[@fxlayoutalign='start center']/a/following-sibling::div/a")
+    @FindBy(xpath = "//mat-toolbar/div/div/a")
     public List<WebElement> headerLinks;
 
     @FindBy(xpath = "//h2[normalize-space(text())='Find Meal Planner on']")
@@ -71,11 +66,18 @@ public abstract class BasePage {
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Demo']")
     public WebElement demoLink;
 
-    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Help Center']")
+    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='FAQ']")
     public WebElement helpLink;
 
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Feedback']")
     public WebElement feedbackLink;
+
+    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='About Us']")
+    public WebElement aboutUsLink;
+
+    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Developer Center']")
+    public WebElement developerCenterLink;
+
 
     @FindBy(xpath = "//div/textarea")
     public WebElement textArea;
@@ -85,9 +87,6 @@ public abstract class BasePage {
 
     @FindBy(xpath = "//button/span[normalize-space(text())='SUBMIT']")
     public WebElement submitBtn;
-
-    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='About Us']")
-    public WebElement aboutUsLink;
 
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);

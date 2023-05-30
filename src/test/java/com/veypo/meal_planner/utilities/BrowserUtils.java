@@ -47,7 +47,7 @@ public class BrowserUtils {
     }
 
     public static void verifyCurrentUrl(WebElement webElement, String expectedCurrentUrl) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
         webElement.click();
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
         String actualCurrentUrl = Driver.getDriver().getCurrentUrl();
@@ -67,6 +67,18 @@ public class BrowserUtils {
             elemTexts.add(el.getText());
         }
         return elemTexts;
+    }
+
+    public static void selectMenuOption(String expectedOption, List<WebElement> allOptions) {
+        for (WebElement eachOption : allOptions) {
+            if (eachOption.getText().equals(expectedOption)) {
+    //            System.out.println(eachOption.getText());
+                WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 1);
+                wait.until(ExpectedConditions.elementToBeClickable(eachOption));
+                eachOption.click();
+                break;
+            }
+        }
     }
 
     /**
@@ -104,10 +116,10 @@ public class BrowserUtils {
     public static void getWindowHandlesAndVerifyNewWindowUrl(WebElement webElement, String expectedUrl) {
         String parentWindowHandle = Driver.getDriver().getWindowHandle();
         webElement.click();
-        Set<String> windowHandles = Driver.getDriver().getWindowHandles();
+        Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 
-        for (String windowHandle : windowHandles) {
+        for (String windowHandle : allWindowHandles) {
             if (!windowHandle.equals(parentWindowHandle)) {
                 Driver.getDriver().switchTo().window(windowHandle);
                 wait.until(ExpectedConditions.urlToBe(expectedUrl));
@@ -120,16 +132,16 @@ public class BrowserUtils {
 //--------------------------------------------------------------------------------
 //  Another way:
 //        String[] allWindowHandles =
-//        windowHandles.toArray(new String[windowHandles.size()]);
+//        allWindowHandles.toArray(new String[allWindowHandles.size()]);
 //        String newWindow = allWindowHandles[allWindowHandles.length - 1];
 //        Driver.getDriver().switchTo().window(newWindow);
 //        wait.until(ExpectedConditions.urlToBe(expectedUrl));
 //        Assert.assertEquals(expectedUrl, Driver.getDriver().getCurrentUrl());
 
-    // Switch back to the parent window
+        // Switch back to the parent window
 //        Driver.getDriver().switchTo().window(parentWindowHandle);
 //---------------------------------------------------------------------------------
-}
+    }
 
     public static void waitForInvisibilityOf(WebElement element) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 15);
@@ -359,7 +371,6 @@ public class BrowserUtils {
         }
     }
 
-
     /**
      * Waits for element to be not stale
      *
@@ -390,7 +401,6 @@ public class BrowserUtils {
         }
     }
 
-
     /**
      * Clicks on an element using JavaScript
      *
@@ -400,7 +410,6 @@ public class BrowserUtils {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
     }
-
 
     /**
      * Scrolls down to an element using JavaScript
@@ -496,7 +505,6 @@ public class BrowserUtils {
         JavascriptExecutor jse = (JavascriptExecutor) Driver.getDriver();
         jse.executeScript(command);
     }
-
 
     /**
      * This method will recover in case of exception after unsuccessful the click,

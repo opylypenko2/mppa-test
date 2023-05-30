@@ -14,18 +14,14 @@ import java.util.List;
 
 public class BasePageStepDefs extends BasePage {
 
-    String parentWindowHandle;
-
     @Given("user is on the home page")
     public void user_is_on_the_home_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("root.url"));
-        //       parentWindowHandle = Driver.getDriver().getWindowHandle();
     }
 
     @Then("user should see the app name link {string}")
     public void user_should_see_the_app_name_link(String expectedLink) {
-        Assert.assertTrue(appName.isDisplayed());
-        Assert.assertEquals(expectedLink, appName.getText());
+        BrowserUtils.verifyText(expectedLink, appName);
     }
 
     @Then("user should see the following links")
@@ -39,10 +35,9 @@ public class BasePageStepDefs extends BasePage {
         loginLink.click();
     }
 
-    @Then("user should see the links")
-    public void user_should_see_the_links(List<String> expectedLinks) {
-        List<String> actualLinks = BrowserUtils.getElementsText(headerLinks);
-        Assert.assertEquals(expectedLinks, actualLinks);
+    @Then("user should see my recipes link {string}")
+    public void user_should_see_my_recipes_link(String expectedLink) {
+        BrowserUtils.verifyText(expectedLink, myRecipesLink);
     }
 
     @Then("the footer title {string} is displayed")
@@ -68,10 +63,9 @@ public class BasePageStepDefs extends BasePage {
         Assert.assertEquals(expectedFooterLinks, actualFooterLinks);
     }
 
-    @Then("after user clicks developers link current url matches expected developer center page url")
-    public void after_user_clicks_developers_link_current_url_matches_expected_developer_center_page_url() {
-        BrowserUtils.verifyCurrentUrl(
-                developersLink, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("developers.page.path"));
+    @Then("after user clicks my recipes link current url matches expected my recipes page url")
+    public void after_user_clicks_my_recipes_link_current_url_matches_expected_my_recipes_page_url() {
+        BrowserUtils.verifyCurrentUrl(myRecipesLink, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("my.recipes.page.path"));
     }
 
     @Then("after user clicks signup link current url matches expected signup page url")
@@ -110,8 +104,8 @@ public class BasePageStepDefs extends BasePage {
                 demoLink, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("demo.page.path"));
     }
 
-    @Then("after user clicks help center link current url matches expected help center page url")
-    public void after_user_clicks_help_center_link_current_url_matches_expected_help_center_page_url() {
+    @Then("after user clicks frequently asked questions link current url matches expected help center page url")
+    public void after_user_clicks_frequently_asked_questions_link_current_url_matches_expected_help_center_page_url() {
         BrowserUtils.verifyCurrentUrl(
                 helpLink, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("help.page.path"));
     }
@@ -128,6 +122,12 @@ public class BasePageStepDefs extends BasePage {
     public void after_user_clicks_about_us_link_current_url_matches_expected_about_us_page_url() {
         BrowserUtils.verifyCurrentUrl(
                 aboutUsLink, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("about.page.path"));
+    }
+
+        @Then("after user clicks developer center link current url matches expected developer center page url")
+    public void after_user_clicks_developer_center_link_current_url_matches_expected_developer_center_page_url() {
+        BrowserUtils.verifyCurrentUrl(
+                developerCenterLink, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("developers.page.path"));
     }
 
     @Then("after user clicks instagram link current url matches expected instagram home page url")
