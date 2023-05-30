@@ -35,4 +35,3 @@ public class LoginPage extends BasePage {
 //TODO
     }
 }
-

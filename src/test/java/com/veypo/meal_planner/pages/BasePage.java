@@ -78,7 +78,6 @@ public abstract class BasePage {
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Developer Center']")
     public WebElement developerCenterLink;
 
-
     @FindBy(xpath = "//div/textarea")
     public WebElement textArea;
 
@@ -92,4 +91,3 @@ public abstract class BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 }
-

@@ -102,21 +102,19 @@ Feature: Base Page
     Then after user clicks instagram link current url matches expected instagram home page url
 
  # @wip @ui
-  Scenario: User clicks Twitter link and ends up on
-  Twitter home page
+  Scenario: User clicks Twitter link and ends up on Twitter home page
     Then after user clicks twitter link current url matches expected twitter home page url
 
 
-  Scenario: User clicks the Facebook link and ends up on
-  Facebook home page
+  Scenario: User clicks Facebook link and ends up on Facebook home page
     Then after user clicks facebook link current url matches expected facebook home page url
 
  # @wip @ui
-  Scenario: User clicks the YouTube link and ends up on
+  Scenario: User clicks YouTube link and ends up on
   YouTube home page
     Then after user clicks youtube link current url matches expected youtube home page url
 
 
-  Scenario: User clicks the Buy Me a Coffee link and ends up on
+  Scenario: User clicks Buy Me a Coffee link and ends up on
   Buy Me a Coffee home page
     Then after user clicks buyMeACoffee link current url matches expected buyMeACoffee home page url

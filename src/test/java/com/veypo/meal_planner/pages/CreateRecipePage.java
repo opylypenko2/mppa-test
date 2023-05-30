@@ -7,11 +7,9 @@ import java.util.List;
 
 public class CreateRecipePage extends BasePage {
 
-    //mat-label[.='Name']/../following-sibling::input
     @FindBy(xpath = "//form//mat-form-field[//mat-label[normalize-space(.)='Name']]//input")
     public WebElement recipeNameField;
 
-    //div/mat-form-field/following-sibling::mat-form-field//label/following-sibling::textarea
     @FindBy(xpath = "//form//mat-form-field[//mat-label[normalize-space(.)='Description']]//textarea")
     public WebElement recipeDescriptionField;
 
@@ -38,8 +36,6 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//span[normalize-space(text())='CROP']")
     public WebElement cropBtn;
 
-    //    @FindBy(xpath = "//mppa-recipe-edit//form/mppa-button-panel[1]//button[.='SAVE']/span[@class='mat-mdc-button-touch-target']")
-//    public WebElement saveChangesBtn;
     @FindBy(xpath = "//span[normalize-space(text())='SAVE']")
     public WebElement saveBtn;
 
@@ -55,7 +51,6 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-recipe-ingredient//input")
     public WebElement ingredientInputField;
 
-    // //div[@fxlayoutalign='center stretch']//label/following-sibling::textarea
     @FindBy(xpath = "//mppa-recipe-ingredient-description//textarea")
     public WebElement ingredientAdditionalInfoField;
 

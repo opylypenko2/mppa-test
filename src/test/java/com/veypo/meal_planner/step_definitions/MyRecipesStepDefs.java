@@ -131,7 +131,6 @@ public class MyRecipesStepDefs {
     public void user_enters_additional_information_and_clicks_add_button(String additionalInfo) {
         createRecipePage.directionsAdditionalInfoField.sendKeys(additionalInfo);
         createRecipePage.directionsSectionAddBtn.click();
-
  //       BrowserUtils.sleep(10);
     }
 
@@ -139,7 +138,6 @@ public class MyRecipesStepDefs {
     public void user_clicks_notes_tips_section_and_then_clicks_add_note_tip_button() {
         createRecipePage.notesTipsSection.click();
         createRecipePage.addNoteTipBtn.click();
-
 //        BrowserUtils.sleep(5);
     }
 
@@ -157,7 +155,6 @@ public class MyRecipesStepDefs {
     public void after_user_clicks_view_option_in_recipe_card_the_recipe_title_matches_expected_recipe_title(String expectedElementText, String expectedRecipeTitle) {
         BrowserUtils.selectMenuOption(expectedElementText, myRecipesPage.cardActions);
 //        BrowserUtils.sleep(5);
-
         Assert.assertEquals(expectedRecipeTitle, myRecipesPage.recipeTitle.getText());
     }
 
@@ -213,6 +210,4 @@ public class MyRecipesStepDefs {
 
 // https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-9.jpg
 //---------------------------------------------------------------------
-
-// //div[@class='mppa-image-edit-dialog-actions']/mppa-button-panel/div/button[3]/span/following-sibling::span[normalize-space(text())='NEXT']
 }
