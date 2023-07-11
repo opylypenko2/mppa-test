@@ -16,7 +16,7 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-section-header[@name='Ingredients']")
     public WebElement ingredientsSectionName;
 
-    @FindBy(xpath = "//div[@class='mppa-recipe-option']")
+    @FindBy(xpath = "//mppa-recipe-option-edit//div/mat-slide-toggle")
     public List<WebElement> allergyOptionsField;
 
     @FindBy(xpath = "//mppa-image-edit[@alt='Recipe image']//span[@class='mat-mdc-button-touch-target']")
@@ -57,13 +57,13 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-recipe-ingredient-quantity//input")
     public WebElement ingredientQuantityField;
 
-    @FindBy(xpath = "//mat-select")
+    @FindBy(xpath = "//mppa-recipe-ingredient-measure//mat-form-field//mat-select//span")
     public WebElement ingredientMeasureMenu;
 
-    @FindBy(xpath = "//div[@role='listbox']/mat-optgroup/mat-option")
+    @FindBy(xpath = "//div[@class='cdk-overlay-container']//div[@role='listbox']/mat-optgroup/mat-option")
     public List<WebElement> measureMenuOptions;
 
-    @FindBy(xpath = "//mppa-recipe-ingredient-add//button/span[normalize-space(text())='ADD']")
+    @FindBy(xpath = "//mppa-recipe-ingredient-add//button[normalize-space(.)='ADD']")
     public WebElement ingredientsSectionAddBtn;
 
     @FindBy(xpath = "//mppa-recipe-entity-section-edit//input")

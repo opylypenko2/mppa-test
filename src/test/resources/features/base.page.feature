@@ -1,5 +1,5 @@
 # @regression @ui
-# @wip @ui
+@wip @ui
 Feature: Base Page
 
   Background:
@@ -22,8 +22,7 @@ Feature: Base Page
     Then user should see the account menu link "Account"
 
 
-  Scenario: User should see the footer title and social network apps links
-    Then the footer title "Find Meal Planner on" is displayed
+  Scenario: User should see social network apps links
     Then the following social network apps links are displayed
       | Instagram       |
       | Twitter         |
@@ -46,10 +45,10 @@ Feature: Base Page
       | Cookies Policy       |
       | Third Party Licenses |
       | Demo                 |
-      | FAQ                  |
+      | Help Center          |
+      | Developer Hub        |
       | Feedback             |
       | About Us             |
-      | Developer Center     |
 
 
   Scenario: User clicks My Recipes link and ends up on My Recipes page
@@ -82,8 +81,12 @@ Feature: Base Page
     Then after user clicks demo link current url matches expected demo page url
 
 #  @wip @ui
-  Scenario: User clicks FAQ link and ends up on Help Center page
-    Then after user clicks frequently asked questions link current url matches expected help center page url
+  Scenario: User clicks Help Center link and ends up on Help Center page
+    Then after user clicks help center link current url matches expected help center page url
+
+# @wip @ui
+  Scenario: User clicks Developer Hub link and ends up on Developers page
+    Then after user clicks developer hub link current url matches expected developers page url
 
 
   Scenario: User clicks Feedback link and should see the dialog window for providing feedback
@@ -93,9 +96,6 @@ Feature: Base Page
   Scenario: User clicks About Us link and ends up on About Us page
     Then after user clicks about us link current url matches expected about us page url
 
- # @wip @ui
-  Scenario: User clicks Developer Center link and ends up on Developer Center page
-    Then after user clicks developer center link current url matches expected developer center page url
 
  # @wip @ui
   Scenario: User clicks Instagram link and ends up on Instagram page

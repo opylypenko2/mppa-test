@@ -20,7 +20,7 @@ public class LoginStepDefs {
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
-        String url = ConfigurationReader.getProperty("root.url")
+        String url = ConfigurationReader.getProperty("url.ui")
                 + ConfigurationReader.getProperty("login.page.path");
 
         Driver.getDriver().get(url);
@@ -31,7 +31,7 @@ public class LoginStepDefs {
         loginPage.login_with_click(
                 ConfigurationReader.getProperty("user1.email.valid"),
                 ConfigurationReader.getProperty("user1.password.valid"));
-        String expectedCurrentUrl = ConfigurationReader.getProperty("root.url") + "/";
+        String expectedCurrentUrl = ConfigurationReader.getProperty("url.ui") + "/";
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
     }
 
@@ -62,7 +62,7 @@ public class LoginStepDefs {
         // since actualCurrentUrl = https://meal2cook.dev/ --> gives a single slash at the end of url during the test,
         // and expectedCurrentUrl (which we read from configuration.properties file) does NOT have a single slash
         // at the end of url, we concatenate a single slash at the end:
-        String expectedCurrentUrl = ConfigurationReader.getProperty("root.url") + "/";
+        String expectedCurrentUrl = ConfigurationReader.getProperty("url.ui") + "/";
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
         //-----------------------------------------------------------------------------
         //  Example:

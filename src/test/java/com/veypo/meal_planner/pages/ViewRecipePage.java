@@ -13,7 +13,7 @@ public class ViewRecipePage extends BasePage {
     @FindBy(xpath = "//main/mppa-button-panel[1]//button[normalize-space(.)='SHARE']")
     public WebElement shareBtn;
 
-    @FindBy(xpath = "//main/mppa-button-panel[1]//button[normalize-space(.)='more_vert']")
+    @FindBy(xpath = "//mppa-recipe-view/main/div/mppa-button-panel//button/span[@class='mat-mdc-button-touch-target']")
     public WebElement threeDotsMenuBtn;
 
     @FindBy(xpath = "//mppa-recipe-view//main/mppa-button-panel[1]//a[normalize-space(.)='CLOSE']")

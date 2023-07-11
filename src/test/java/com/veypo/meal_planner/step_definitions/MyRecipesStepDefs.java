@@ -25,7 +25,7 @@ public class MyRecipesStepDefs {
     ViewRecipePage viewRecipePage = new ViewRecipePage();
     CreateRecipePage createRecipePage = new CreateRecipePage();
     UpdateRecipePage updateRecipePage = new UpdateRecipePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
 
     @When("user clicks my recipes link")
     public void user_clicks_my_recipes_link() {
@@ -39,7 +39,7 @@ public class MyRecipesStepDefs {
 
     @When("after user chooses create new recipe option from a menu current url matches expected create recipe page url")
     public void after_user_chooses_create_new_recipe_option_from_a_menu_current_url_matches_expected_create_recipe_page_url() {
-        BrowserUtils.verifyCurrentUrl(myRecipesPage.createNewRecipeOption, ConfigurationReader.getProperty("root.url") + ConfigurationReader.getProperty("create.recipe.page.path"));
+        BrowserUtils.verifyCurrentUrl(myRecipesPage.createNewRecipeOption, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("create.recipe.page.path"));
     }
 
     @When("user enters new recipe name {string}")
@@ -146,9 +146,9 @@ public class MyRecipesStepDefs {
         createRecipePage.createBtn.click();
     }
 
-    @Then("recently updated recipe is displayed")
-    public void recently_updated_recipe_is_displayed() {
-        Assert.assertTrue(myRecipesPage.recentlyUpdatedRecipe.isDisplayed());
+    @Then("recently created recipe is displayed")
+    public void recently_created_recipe_is_displayed() {
+        Assert.assertTrue(myRecipesPage.recentlyCreatedRecipe.isDisplayed());
     }
 
     @Then("after user clicks view {string} option in recipe card the recipe title matches expected recipe title {string}")

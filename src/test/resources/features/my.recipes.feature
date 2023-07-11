@@ -4,6 +4,7 @@ Feature: Create a new recipe flow
   Background:
     Given user is on the home page
 
+ # @wip @ui
   Scenario Outline: User can create a recipe
     When user clicks login link
     And user logs in with valid credentials
@@ -38,7 +39,7 @@ Feature: Create a new recipe flow
     # Steps for add section //TODO
     # Add more steps for notes/tips    //TODO
     And user clicks create button
-    Then recently updated recipe is displayed
+    Then recently created recipe is displayed
     Then after user clicks view "VIEW" option in recipe card the recipe title matches expected recipe title "<recipeName>"
     Then user selects delete "DELETE" option in recipe view and deletes the recipe
 

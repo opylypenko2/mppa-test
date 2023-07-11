@@ -42,10 +42,10 @@ public abstract class BasePage {
     @FindBy(xpath = "//a[@title='Buy Me a Coffee']")
     public WebElement buyMeACoffeeLink;
 
-    @FindBy(xpath = "//footer//div/div/div/mppa-link")
+    @FindBy(xpath = "//footer//section/mppa-link")
     public List<WebElement> socialNetworkLinks;
 
-    @FindBy(xpath = "//footer//div/h3")
+    @FindBy(xpath = "//footer//div/div/section/h3")
     public List<WebElement> footerColumnsHeaders;
 
     @FindBy(xpath = "//footer//div//li/a")
@@ -66,8 +66,8 @@ public abstract class BasePage {
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Demo']")
     public WebElement demoLink;
 
-    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='FAQ']")
-    public WebElement helpLink;
+    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Help Center']")
+    public WebElement helpCenterLink;
 
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Feedback']")
     public WebElement feedbackLink;
@@ -75,8 +75,8 @@ public abstract class BasePage {
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='About Us']")
     public WebElement aboutUsLink;
 
-    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Developer Center']")
-    public WebElement developerCenterLink;
+    @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Developer Hub']")
+    public WebElement developerHubLink;
 
     @FindBy(xpath = "//div/textarea")
     public WebElement textArea;

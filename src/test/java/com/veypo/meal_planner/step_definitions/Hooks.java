@@ -9,6 +9,7 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import java.util.concurrent.TimeUnit;
+import static io.restassured.RestAssured.baseURI;
 
 public class Hooks {
 
@@ -43,5 +44,11 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", "screenshot");
         }
         Driver.closeDriver();
+    }
+
+    // For API
+    @Before("@api")
+    public static void init() {
+        baseURI = ConfigurationReader.getProperty("url.api");
     }
 }

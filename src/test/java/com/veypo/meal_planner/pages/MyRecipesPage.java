@@ -25,8 +25,8 @@ public class MyRecipesPage extends BasePage {
     public List<WebElement> allSavedRecipes;
 
     // works for card layout (--> Preferences):
-    @FindBy(xpath = "//mppa-recipe-workspace-active-layout-card/div/div[1]//mat-card-header//a")
-    public WebElement recentlyUpdatedRecipe;
+    @FindBy(xpath = "//mppa-recipe-workspace-active-layout-card/div/div[1]//mppa-image-viewport-view/img")
+    public WebElement recentlyCreatedRecipe;
 
     // Card Edit, View Buttons:
     @FindBy(xpath = "//mppa-recipe-workspace-active-layout-card/div/div[1]//mat-card-actions//a")
