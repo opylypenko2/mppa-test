@@ -1,14 +1,15 @@
-#@regression @ui
+# @regression @ui
+# @wip @ui
 Feature: Base Page
 
   Background:
     Given user is on the home page
 
+
   Scenario: Before logging in/signing up user should see the following links
-    Then user should see the app name link "Meal Planner dev"
+    Then user should see the app name link "Meal Planner"
     Then user should see the following links
       | My Recipes |
-      | Developers |
       | Log in     |
       | Sign up    |
 
@@ -16,10 +17,8 @@ Feature: Base Page
   Scenario: After logging in user should see the following links
     When user clicks login link
     When user logs in with valid credentials
-    Then user should see the app name link "Meal Planner dev"
-    Then user should see the links
-      | My Recipes |
-      | Developers |
+    Then user should see the app name link "Meal Planner"
+    Then user should see my recipes link "My Recipes"
     Then user should see the account menu link "Account"
 
 
@@ -47,80 +46,75 @@ Feature: Base Page
       | Cookies Policy       |
       | Third Party Licenses |
       | Demo                 |
-      | Help Center          |
+      | FAQ                  |
       | Feedback             |
       | About Us             |
-
-#  @wip @ui
-  Scenario: User clicks the Developers link and ends up on
-  Developer Center page
-    Then after user clicks developers link current url matches expected developer center page url
+      | Developer Center     |
 
 
-  Scenario: User clicks the Signup link and ends up on
-  Signup page
+  Scenario: User clicks My Recipes link and ends up on My Recipes page
+    When user clicks login link
+    When user logs in with valid credentials
+    Then after user clicks my recipes link current url matches expected my recipes page url
+
+
+  Scenario: User clicks Signup link and ends up on Signup page
     Then after user clicks signup link current url matches expected signup page url
 
 
-  Scenario: User clicks the Terms and Conditions link and ends up on
-  Terms and Conditions page
+  Scenario: User clicks Terms and Conditions link and ends up on Terms and Conditions page
     Then after user clicks terms and conditions link current url matches expected terms and conditions page url
 
 
-  Scenario: User clicks the Privacy Policy link and ends up on
-  Privacy Policy page
+  Scenario: User clicks Privacy Policy link and ends up on Privacy Policy page
     Then after user clicks privacy policy link current url matches expected privacy policy page url
 
 
-  Scenario: User clicks the Cookies Policy link and ends up on
-  Cookies Policy page
+  Scenario: User clicks Cookies Policy link and ends up on Cookies Policy page
     Then after user clicks cookies policy link current url matches expected cookies policy page url
 
 
-  Scenario: User clicks the Third Party Licenses link and ends up on
-  Third Party Licenses page
+  Scenario: User clicks Third Party Licenses link and ends up on Third Party Licenses page
     Then after user clicks third party licenses link current url matches expected third party licenses page url
 
 
-  Scenario: User clicks the Demo link and ends up on
-  Demo page
+  Scenario: User clicks Demo link and ends up on Demo page
     Then after user clicks demo link current url matches expected demo page url
 
+#  @wip @ui
+  Scenario: User clicks FAQ link and ends up on Help Center page
+    Then after user clicks frequently asked questions link current url matches expected help center page url
 
-  Scenario: User clicks the Help Center link and ends up on
-  Help Center page
-    Then after user clicks help center link current url matches expected help center page url
 
-  @wip @ui
-  Scenario: User clicks the Feedback link and should see the dialog window for providing feedback
+  Scenario: User clicks Feedback link and should see the dialog window for providing feedback
     Then after clicking feedback link user should see dialog window for providing feedback
 
 
-  Scenario: User clicks the About Us link and ends up on
-  About Us page
+  Scenario: User clicks About Us link and ends up on About Us page
     Then after user clicks about us link current url matches expected about us page url
 
  # @wip @ui
-  Scenario: User clicks the Instagram link and ends up on
-  Instagram page
+  Scenario: User clicks Developer Center link and ends up on Developer Center page
+    Then after user clicks developer center link current url matches expected developer center page url
+
+ # @wip @ui
+  Scenario: User clicks Instagram link and ends up on Instagram page
     Then after user clicks instagram link current url matches expected instagram home page url
 
  # @wip @ui
-  Scenario: User clicks the Twitter link and ends up on
-  Twitter home page
+  Scenario: User clicks Twitter link and ends up on Twitter home page
     Then after user clicks twitter link current url matches expected twitter home page url
 
 
-  Scenario: User clicks the Facebook link and ends up on
-  Facebook home page
+  Scenario: User clicks Facebook link and ends up on Facebook home page
     Then after user clicks facebook link current url matches expected facebook home page url
 
  # @wip @ui
-  Scenario: User clicks the YouTube link and ends up on
+  Scenario: User clicks YouTube link and ends up on
   YouTube home page
     Then after user clicks youtube link current url matches expected youtube home page url
 
- # @wip @ui
-  Scenario: User clicks the Buy Me a Coffee link and ends up on
+
+  Scenario: User clicks Buy Me a Coffee link and ends up on
   Buy Me a Coffee home page
     Then after user clicks buyMeACoffee link current url matches expected buyMeACoffee home page url

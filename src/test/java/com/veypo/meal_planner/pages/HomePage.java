@@ -8,4 +8,3 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[.='Account']")
     public WebElement accountMenu;
 }
-

@@ -5,10 +5,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
-    @FindBy(xpath = "//input[@id='mat-input-0']")
+    @FindBy(xpath = "//input[@type='email']")
     public WebElement inputEmail;
 
-    @FindBy(xpath = "//input[@id='mat-input-1']")
+    @FindBy(xpath = "//input[@type='password']")
     public WebElement inputPassword;
 
     @FindBy(xpath = "//button[@type='submit']")
@@ -17,7 +17,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//div[normalize-space(text())='Incorrect username or password']")
     public WebElement alertMsg;
 
-    @FindBy(xpath = "//mat-form-field//mat-error/mppa-error-field/div")
+    @FindBy(xpath = "//span[normalize-space(text())='Incorrect email address format']")
     public WebElement emailErrorMsg;
 
     public void login(String email, String password) {
@@ -35,4 +35,3 @@ public class LoginPage extends BasePage {
 //TODO
     }
 }
-
