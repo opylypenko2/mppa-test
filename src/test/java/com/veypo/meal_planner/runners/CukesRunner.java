@@ -10,14 +10,14 @@ import org.junit.runner.RunWith;
                 "me.jvt.cucumber.report.PrettyReports:target/cucumber",
                 "json:target/cucumber.json",
                 "rerun:target/rerun.txt"}, // cucumber report
-        features = "src/test/resources/features",
-        glue = "com/veypo/meal_planner/step_definitions",
+        features = "src/test/resources/features",//scenarios location
+        glue = "com/veypo/meal_planner/step_definitions",// implementation
         dryRun = false,
         tags = "@wip and @ui"
 )
 public class CukesRunner {
 }
-
+// dryRun = true, --> snippets of unimplemented steps
 // tags:
 //  "@wip and @ui"
 //  "@smoke"

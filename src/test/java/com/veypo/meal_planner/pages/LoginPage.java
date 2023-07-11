@@ -14,7 +14,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement loginBtn;
 
-    @FindBy(xpath = "//div[normalize-space(text())='Incorrect username or password']")
+    @FindBy(xpath = "//mppa-alert/div/span[normalize-space(.)='Incorrect username or password']")
     public WebElement alertMsg;
 
     @FindBy(xpath = "//span[normalize-space(text())='Incorrect email address format']")

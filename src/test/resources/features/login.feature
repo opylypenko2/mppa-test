@@ -1,4 +1,5 @@
 #@ui @regression
+@wip @ui
 Feature: Login function
 
   Background:
