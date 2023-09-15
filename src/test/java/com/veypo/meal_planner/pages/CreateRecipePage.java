@@ -35,6 +35,7 @@ public class CreateRecipePage extends BasePage {
 
     @FindBy(xpath = "//span[normalize-space(text())='CROP']")
     public WebElement cropBtn;
+// //mppa-image-edit-dialog//div[@class='mppa-image-edit-dialog-actions mppa-layout-row-start-center']//span[normalize-space(text())='CROP']
 
     @FindBy(xpath = "//span[normalize-space(text())='SAVE']")
     public WebElement saveBtn;
@@ -63,7 +64,7 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//div[@class='cdk-overlay-container']//div[@role='listbox']/mat-optgroup/mat-option")
     public List<WebElement> measureMenuOptions;
 
-    @FindBy(xpath = "//mppa-recipe-ingredient-add//button[normalize-space(.)='ADD']")
+    @FindBy(xpath = "//mppa-recipe-ingredient-edit//form//mppa-button-panel//button[@type='submit']")
     public WebElement ingredientsSectionAddBtn;
 
     @FindBy(xpath = "//mppa-recipe-entity-section-edit//input")
