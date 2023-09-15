@@ -1,2 +1,5 @@
 user1.password.valid=
 user2.password.invalid=
+db.url=
+db.username=
+db.password=
