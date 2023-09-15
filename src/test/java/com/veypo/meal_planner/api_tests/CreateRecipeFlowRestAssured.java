@@ -21,6 +21,7 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
     /* In Rest Assured we declare global variables as static to be shared by all instances of this class (every @Test method is an instance of this class)
      */
 
+    protected static String location;
     protected static String recordURI;
     protected static String recipeId;
     protected static String recordVersion;
@@ -41,6 +42,7 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
       Then response header's "Location" value contains recipeId
      */
 
+    // @Test methods must not be private or static and must not return a value.
     @Disabled
     @Order(value = 1)
     @DisplayName("POST new recipe with String body")
@@ -53,7 +55,7 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
                 "}\n" +
                 "}";
 
-        recordURI =
+        location =
                 given().accept(ContentType.JSON)
                         .log().body().contentType(ContentType.JSON)
                         .body(requestBody)
@@ -61,10 +63,12 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
                 when().post("/api/v1/recipes").//prettyPeek().
                 then().statusCode(201)
                         .extract().response().header("Location");
-        System.out.println("Record URI = " + recordURI);
+ //       System.out.println("locationHeader = " + location);
 
-        recipeId = recordURI.substring(recordURI.lastIndexOf("/") + 1);
+        recipeId = location.substring(location.lastIndexOf("/") + 1);
         System.out.println("recipeId = " + recipeId);
+
+        recordURI = "/api/v1/recipes" + "/" + recipeId;
     }
 
     @Disabled
@@ -79,7 +83,7 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
         requestBody.put("content", content);
         System.out.println("requestBody = " + requestBody);
 
-        recordURI =
+        location =
                 given().accept(ContentType.JSON)
                         .log().body().contentType(ContentType.JSON)
                         .body(requestBody)
@@ -87,10 +91,10 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
                 when().post("/api/v1/recipes").//prettyPeek().
                 then().statusCode(201)
                         .extract().response().header("Location");
-        System.out.println("Record URI = " + recordURI);
+        System.out.println("locationHeader = " + location);
 
-        recipeId = recordURI.substring(recordURI.lastIndexOf("/") + 1);
-        System.out.println("recipeId = " + recipeId);
+        recipeId = location.substring(location.lastIndexOf("/") + 1);
+ //       System.out.println("recipeId = " + recipeId);
     }
 
     @Order(value = 1)
@@ -111,12 +115,13 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
                         .log().body().contentType(ContentType.JSON)
                         .body(recipe)
                         .header("X-Mppa-Auth-Token", accessToken).
-                when().post("/api/v1/recipes").//prettyPeek().
+                when().post("/api/v1/recipes")
+                        .//prettyPeek().
                 then().statusCode(201)
                         .extract().response();
 
-        recordURI = response.header("Location");
-        System.out.println("Record URI = " + recordURI);
+        location = response.header("Location");
+        System.out.println("locationHeader = " + location);
 
         recordVersion = response.header("ETag");
         System.out.println("Record Version = " + recordVersion);
@@ -124,12 +129,13 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
         lastModified = response.header("Last-Modified");
         System.out.println("lastModified = " + lastModified);
 
-//        recipeId = recordURI.substring(recordURI.lastIndexOf("/") + 1);
+        recipeId = location.substring(location.lastIndexOf("/") + 1);
 //        System.out.println("Created recipeId = " + recipeId);
 //        System.out.println(this);
 
-        //TODO Practice POJOs
+        recordURI = "/api/v1/recipes" + "/" + recipeId;
     }
+    //TODO Practice POJOs
 
   //  @Disabled
     @Order(value = 2)

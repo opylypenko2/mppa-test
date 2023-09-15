@@ -1,14 +1,12 @@
 package com.veypo.meal_planner.utilities;
 
-import org.mozilla.javascript.tools.shell.Environment;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DB_Util {
+public class DB_Utils {
 
     // declaring at class level, so all methods can access
     private static Connection con;
@@ -17,7 +15,7 @@ public class DB_Util {
     private static ResultSetMetaData rsmd;
 
     /**
-     * Create Connection by jdbc url and username, password provided
+     * Create Connection by jdbc url, username and password provided
      *
      * @param url      jdbc url for any database
      * @param username username for database
@@ -40,11 +38,11 @@ public class DB_Util {
 //        String username = Environment.DB_USERNAME;
 //        String password = Environment.DB_PASSWORD;
 //-----------------------------------------------------------------------------------
-////        String url      = ConfigurationReader.getProperty("dbUrl") ;
-////        String username = ConfigurationReader.getProperty("dbUsername") ;
-////        String password = ConfigurationReader.getProperty("dbPassword") ;
-//
-//        createConnection(url, username, password);
+        String url      = ConfigurationReader.getProperty("db.url") ;
+        String username = ConfigurationReader.getProperty("db.username") ;
+        String password = ConfigurationReader.getProperty("db.password") ;
+
+        createConnection(url, username, password);
     }
 
     /**
@@ -91,10 +89,8 @@ public class DB_Util {
         }
     }
 
-    // find out the row count
-
     /**
-     * find out the row count
+     * Find out the row count
      *
      * @return row count of this ResultSet
      */
@@ -113,7 +109,7 @@ public class DB_Util {
     }
 
     /**
-     * find out the column count
+     * Find out the column count
      *
      * @return column count of this ResultSet
      */
@@ -150,7 +146,6 @@ public class DB_Util {
     }
 
     // get entire row of data according to row number
-
     /**
      * Getting entire row of data in a List of String
      *
@@ -177,7 +172,7 @@ public class DB_Util {
     }
 
     /**
-     * getting the cell value according to row num and column index
+     * Getting the cell value according to row num and column index
      *
      * @param rowNum      row number to get the data from
      * @param columnIndex column number to get the data from
@@ -199,7 +194,7 @@ public class DB_Util {
     }
 
     /**
-     * getting the cell value according to row num and column name
+     * Getting the cell value according to row num and column name
      *
      * @param rowNum     row number to get the data from
      * @param columnName column Name to get the data from
@@ -227,7 +222,7 @@ public class DB_Util {
     }
 
     /**
-     * getting entire column data as list according to column number
+     * Getting entire column data as list according to column number
      *
      * @param columnNum column number to get all data
      * @return List object that contains all rows of that column
@@ -298,7 +293,7 @@ public class DB_Util {
     }
 
     /**
-     * Save entire row data as Map<String,String>
+     * Save entire row data as Map<String, String>
      *
      * @param rowNum row number
      * @return Map object that contains key value pair
@@ -334,15 +329,15 @@ public class DB_Util {
     public static List<Map<String, String>> getAllRowsAsListOfMap() {
         List<Map<String, String>> allRowsLstOfMap = new ArrayList<>();
         int rowCount = getRowCount();
+
         // move from first row till last row
         // get each row as map object and add it to the list
-
         for (int rowIndex = 1; rowIndex <= rowCount; rowIndex++) {
             Map<String, String> rowMap = getRowMap(rowIndex);
             allRowsLstOfMap.add(rowMap);
         }
         resetCursor();
-        
+
         return allRowsLstOfMap;
     }
 }

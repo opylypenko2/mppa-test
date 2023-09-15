@@ -4,7 +4,7 @@ import com.veypo.meal_planner.pages.CreateRecipePage;
 import com.veypo.meal_planner.pages.MyRecipesPage;
 import com.veypo.meal_planner.pages.UpdateRecipePage;
 import com.veypo.meal_planner.pages.ViewRecipePage;
-import com.veypo.meal_planner.utilities.BrowserUtils;
+import com.veypo.meal_planner.utilities.BrowserUI_Utils;
 import com.veypo.meal_planner.utilities.ConfigurationReader;
 import com.veypo.meal_planner.utilities.Driver;
 import io.cucumber.java.en.And;
@@ -25,7 +25,7 @@ public class MyRecipesStepDefs {
     ViewRecipePage viewRecipePage = new ViewRecipePage();
     CreateRecipePage createRecipePage = new CreateRecipePage();
     UpdateRecipePage updateRecipePage = new UpdateRecipePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 30);
 
     @When("user clicks my recipes link")
     public void user_clicks_my_recipes_link() {
@@ -39,7 +39,7 @@ public class MyRecipesStepDefs {
 
     @When("after user chooses create new recipe option from a menu current url matches expected create recipe page url")
     public void after_user_chooses_create_new_recipe_option_from_a_menu_current_url_matches_expected_create_recipe_page_url() {
-        BrowserUtils.verifyCurrentUrl(myRecipesPage.createNewRecipeOption, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("create.recipe.page.path"));
+        BrowserUI_Utils.verifyCurrentUrl(myRecipesPage.createNewRecipeOption, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("create.recipe.page.path"));
     }
 
     @When("user enters new recipe name {string}")
@@ -54,7 +54,7 @@ public class MyRecipesStepDefs {
 
     @When("user can see and select following allergy options")
     public void user_can_see_and_select_following_allergy_options(List<String> expectedOptions) {
-        List<String> actualOptions = BrowserUtils.getElementsText(createRecipePage.allergyOptionsField);
+        List<String> actualOptions = BrowserUI_Utils.getElementsText(createRecipePage.allergyOptionsField);
         Assert.assertEquals(expectedOptions, actualOptions);
 
         for (WebElement each : createRecipePage.allergyOptionsField) {
@@ -99,7 +99,7 @@ public class MyRecipesStepDefs {
     @And("user selects measure option {string} from measure component and clicks add button")
     public void user_selects_measure_option_from_measure_component_and_clicks_add_button(String measureOption) {
         createRecipePage.ingredientMeasureMenu.click();
-        BrowserUtils.selectMenuOption(measureOption, createRecipePage.measureMenuOptions);
+        BrowserUI_Utils.selectMenuOption(measureOption, createRecipePage.measureMenuOptions);
         wait.until(ExpectedConditions.elementToBeClickable(createRecipePage.ingredientsSectionAddBtn));
         createRecipePage.ingredientsSectionAddBtn.click();
     }
@@ -153,7 +153,7 @@ public class MyRecipesStepDefs {
 
     @Then("after user clicks view {string} option in recipe card the recipe title matches expected recipe title {string}")
     public void after_user_clicks_view_option_in_recipe_card_the_recipe_title_matches_expected_recipe_title(String expectedElementText, String expectedRecipeTitle) {
-        BrowserUtils.selectMenuOption(expectedElementText, myRecipesPage.cardActions);
+        BrowserUI_Utils.selectMenuOption(expectedElementText, myRecipesPage.cardActions);
 //        BrowserUtils.sleep(5);
         Assert.assertEquals(expectedRecipeTitle, myRecipesPage.recipeTitle.getText());
     }
@@ -161,7 +161,7 @@ public class MyRecipesStepDefs {
     @Then("user selects delete {string} option in recipe view and deletes the recipe")
     public void user_selects_delete_option_and_deletes_the_recipe(String expectedElementText) {
         viewRecipePage.threeDotsMenuBtn.click();
-        BrowserUtils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
+        BrowserUI_Utils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
         viewRecipePage.confirmationDeleteOption.click();
 //        BrowserUtils.sleep(5);
     }
@@ -176,7 +176,7 @@ public class MyRecipesStepDefs {
     @Then("user selects edit {string} option in recipe view")
     public void user_selects_edit_option_in_recipe_view(String expectedElementText) {
         viewRecipePage.threeDotsMenuBtn.click();
-        BrowserUtils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
+        BrowserUI_Utils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
     }
 
     @And("user saves updated recipe")

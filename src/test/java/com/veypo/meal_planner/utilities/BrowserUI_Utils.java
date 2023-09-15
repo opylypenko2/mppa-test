@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class BrowserUtils {
-    //Methods are static. Because we do not want to create an object to call those methods.
+public class BrowserUI_Utils {
+    // Methods are static --> Because we do not want to create an object to call those methods.
     // We just want to call those methods by the class name. That is why they are static type.
 
     /**
