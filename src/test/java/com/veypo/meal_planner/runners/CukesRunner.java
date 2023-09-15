@@ -17,8 +17,11 @@ import org.junit.runner.RunWith;
 )
 public class CukesRunner {
 }
-// dryRun = true, --> snippets of unimplemented steps
+// dryRun = true, --> to get snippets of unimplemented steps
+// dryRun = false, --> to run
 // tags:
 //  "@wip and @ui"
 //  "@smoke"
 //  "@regression"
+//  "@api"
+//  "@db"
