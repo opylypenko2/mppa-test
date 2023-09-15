@@ -5,6 +5,8 @@ HOW TO RUN THE PROJECT
 --------------------------------------------------------------------------------------------
 RUN FROM CUKES RUNNER
 --------------------------------------------------------------------------------------------
+For UI Testing:
+----------------
 - To run the whole feature file (all scenarios) --> place tags `@wip @ui` on top of Feature:
    `@wip @ui
     Feature: Login function`
@@ -16,6 +18,10 @@ RUN FROM CUKES RUNNER
 
 - To run a single Scenario --> place tags `@wip @ui` on top of Scenario you'd like to run
 - Trigger test execution from CukesRunner.java class --> make sure `dryRun = false, tags = "@wip and @ui"`, then run from CukesRunner
+----------------------------------
+For API Testing:
+-----------------
+- 
 -----------------------------------------------------------------------------------------------------
 RUN FROM COMMAND LINE
 ----------------------------------------------------------------------------------------------------- 
