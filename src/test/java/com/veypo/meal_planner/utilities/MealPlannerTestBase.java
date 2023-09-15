@@ -9,11 +9,16 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
-
 public abstract class MealPlannerTestBase {
 
     protected static String accessToken;
 
+    /*
+     - @BeforeAll
+        - is used to signal that the annotated method should be executed BEFORE ALL TESTS in the current test class.
+        - In contrast to @BeforeEach methods, @BeforeAll methods are only executed once for a given test class.
+        - @BeforeAll methods must have a void return type, must not be private, and must be static by default.
+    */
     @BeforeAll
     public static void init() {
         baseURI = ConfigurationReader.getProperty("url.api");
@@ -47,6 +52,12 @@ public abstract class MealPlannerTestBase {
         System.out.println("accessToken = " + accessToken);
     }
 
+   /*
+    - @AfterAll
+        - is used to signal that the annotated method should be executed AFTER ALL TESTS in the current test class.
+        - In contrast to @AfterEach methods, @AfterAll methods are only executed once for a given test class.
+        - @AfterAll methods must have a void return type, must not be private, and must be static by default.
+    */
     @AfterAll
     public static void logout() {
         /**
