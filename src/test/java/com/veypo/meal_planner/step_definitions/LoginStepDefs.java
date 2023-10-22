@@ -65,6 +65,7 @@ public class LoginStepDefs {
         String expectedCurrentUrl = ConfigurationReader.getProperty("url.ui") + "/";
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
         //-----------------------------------------------------------------------------
+        // ExpectedConditions.urlToBe() or ExpectedConditions.urlMatches():
         //  Example:
         //  driver.get("https://example.com");
         //  wait.until(ExpectedConditions.urlToBe("https://example.com")); --> to wait
