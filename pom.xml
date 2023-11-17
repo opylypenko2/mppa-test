@@ -9,97 +9,123 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <selenium-java.version>4.15.0</selenium-java.version>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <webdrivermanager.version>5.6.2</webdrivermanager.version>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <cucumber-java.version>7.14.0</cucumber-java.version>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+        <cucumber-junit.version>7.14.0</cucumber-junit.version>
+        <!-- https://mvnrepository.com/artifact/me.jvt.cucumber/reporting-plugin -->
+        <reporting-plugin.version>7.11.0</reporting-plugin.version>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <rest-assured.version>5.3.2</rest-assured.version>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <junit-jupiter.version>5.10.1</junit-jupiter.version>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+        <json-schema-validator.version>5.3.2</json-schema-validator.version>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <jackson-databind.version>2.16.0-rc1</jackson-databind.version>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <lombok.version>1.18.30</lombok.version>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <postgresql.version>42.6.0</postgresql.version>
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <javafaker.version>1.0.2</javafaker.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
-
-        <!-- For API Testing -->
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.5.1</version>
-        </dependency>
-
-        <!--JUnit 5 Dependency  -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.9.0</version>
-        </dependency>
-
         <!-- Selenium - Browser automation tool -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <version>${selenium-java.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager - Driver set up  -->
+        <!-- Driver set up -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.1.0</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <!-- Cucumber-Java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>7.2.3</version>
+            <version>${cucumber-java.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+        <!-- Cucumber-JUnit4 -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>7.2.3</version>
+            <version>${cucumber-junit.version}</version>
             <scope>test</scope>
         </dependency>
 
-        <!--For deserialization/serialization we need to add one Databind library/ObjectMapper like JACKSON or GSON -->
+        <!-- Cucumber Reporting Plug In -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
+            <groupId>me.jvt.cucumber</groupId>
+            <artifactId>reporting-plugin</artifactId>
+            <version>${reporting-plugin.version}</version>
         </dependency>
 
-        <!--Lombok - Instead of keep writing getter/setter/constr/toString .... boilerplates -->
+        <!-- Rest Assured - For API Testing -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
         </dependency>
 
-        <!-- This is for Json Schema Validator  -->
+        <!-- JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+        </dependency>
+
+        <!-- Json Schema Validator -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>4.4.0</version>
+            <version>${json-schema-validator.version}</version>
+        </dependency>
+
+        <!-- For deserialization/serialization we need to add Databind Library/ObjectMapper like JACKSON or GSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
+        <!-- Lombok - Instead of keep writing getter/setter/constr/toString .... boilerPlates -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- PostgreSQL JDBC Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.10</version>
+            <version>${postgresql.version}</version>
         </dependency>
 
+        <!-- Java Faker -->
         <dependency>
-            <groupId>me.jvt.cucumber</groupId>
-            <artifactId>reporting-plugin</artifactId>
-            <version>7.2.0</version>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${javafaker.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -107,7 +133,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <parallel>methods</parallel>
                     <useUnlimitedThreads>true</useUnlimitedThreads>
@@ -120,6 +146,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

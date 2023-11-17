@@ -33,5 +33,3 @@ from ingredients;
 select *
 from ingredients i
          full join shopping_items sh on i.ingredient_id = sh.ingredient_id;
-
-

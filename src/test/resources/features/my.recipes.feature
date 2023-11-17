@@ -45,7 +45,7 @@ Feature: Create a new recipe flow
 
     Examples:
       | recipeName   | recipeDescription                               | newTag        | servingsNumber | ingredient | ingredientAdditionalInfo   | quantity | measureOption | stepAdditionalInfo     | recipeImageUrl                                                                                       | stepImageUrl                                                                                      |
-      | Tartar Sauce | Perfect with fish sticks, crab or salmon cakes. | KETO-FRIENDLY | 4              | Mayonnaise | Hellmann's Real Mayonnaise | 1        | Cup           | Refrigerate when done. | https://www.wholesomeyum.com/wp-content/uploads/2021/02/wholesomeyum-keto-tartar-sauce-recipe-14.jpg | https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/02/Best-Guten-Free-Recipes-3.jpg |
+      | Tartar Sauce | Perfect with fish sticks, crab or salmon cakes. | KETO-FRIENDLY | 4              | Mayonnaise | Hellman's Real Mayonnaise | 1        | Cup           | Refrigerate when done. | https://www.wholesomeyum.com/wp-content/uploads/2021/02/wholesomeyum-keto-tartar-sauce-recipe-14.jpg | https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/02/Best-Guten-Free-Recipes-3.jpg |
 
 
   Scenario Outline: User can update recipe

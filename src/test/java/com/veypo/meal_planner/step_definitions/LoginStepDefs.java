@@ -12,12 +12,13 @@ import org.junit.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class LoginStepDefs {
 
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
-
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20));
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
         String url = ConfigurationReader.getProperty("url.ui")
