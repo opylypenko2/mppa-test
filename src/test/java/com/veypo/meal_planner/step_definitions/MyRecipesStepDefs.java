@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class MyRecipesStepDefs {
     ViewRecipePage viewRecipePage = new ViewRecipePage();
     CreateRecipePage createRecipePage = new CreateRecipePage();
     UpdateRecipePage updateRecipePage = new UpdateRecipePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 30);
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30L));
 
     @When("user clicks my recipes link")
     public void user_clicks_my_recipes_link() {
@@ -39,11 +40,12 @@ public class MyRecipesStepDefs {
 
     @When("after user chooses create new recipe option from a menu current url matches expected create recipe page url")
     public void after_user_chooses_create_new_recipe_option_from_a_menu_current_url_matches_expected_create_recipe_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(myRecipesPage.createNewRecipeOption, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("create.recipe.page.path"));
+        BrowserUI_Utils.verifyCurrentUrl(myRecipesPage.createNewRecipeOption,
+                ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("create.recipe.page.path"));
     }
 
     @When("user enters new recipe name {string}")
-    public void user_enters_new_recipe_name (String recipeName) {
+    public void user_enters_new_recipe_name(String recipeName) {
         createRecipePage.recipeNameField.sendKeys(recipeName);
     }
 
@@ -131,7 +133,7 @@ public class MyRecipesStepDefs {
     public void user_enters_additional_information_and_clicks_add_button(String additionalInfo) {
         createRecipePage.directionsAdditionalInfoField.sendKeys(additionalInfo);
         createRecipePage.directionsSectionAddBtn.click();
- //       BrowserUtils.sleep(10);
+        //       BrowserUtils.sleep(10);
     }
 
     @When("user clicks notes tips section and then clicks add note tip button")
@@ -186,7 +188,8 @@ public class MyRecipesStepDefs {
 
     @Then("recipe description matches expected updated recipe description {string}")
     public void recipe_description_matches_expected_updated_recipe_description(String expectedUpdatedRecipeDescription) {
-        Assert.assertEquals(expectedUpdatedRecipeDescription, createRecipePage.recipeDescriptionField.getAttribute("value")); //to get the value of fields(textarea in this case), we need to fetch the value using the getAttribute() method
+        //to get the value of fields(textarea in this case), we need to fetch the value using the getAttribute() method:
+        Assert.assertEquals(expectedUpdatedRecipeDescription, createRecipePage.recipeDescriptionField.getAttribute("value"));
     }
 
     @Then("user selects delete option in update recipe and deletes the recipe")
@@ -202,7 +205,7 @@ public class MyRecipesStepDefs {
 // https://www.wholesomeyum.com/wp-content/uploads/2021/02/wholesomeyum-keto-tartar-sauce-recipe-14.jpg  --> image url
 // KETO-FRIENDLY --> new tag
 // Mayonnaise --> ingredient
-// Hellmann's Real Mayonnaise --> additional info
+// Hellman's Real Mayonnaise --> additional info
 // 1. Combine all ingredients in a bowl and mix well. --> directions steps
 // 2. Add more lemon juice or pickles if desired.
 

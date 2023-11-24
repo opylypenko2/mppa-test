@@ -1,6 +1,7 @@
 package com.veypo.meal_planner.utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,6 +15,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
@@ -22,7 +24,7 @@ public class Driver {
        For each thread in InheritableThreadLocal we can have separate object for that thread.
        Driver class will provide separate webdriver object per thread.
      */
-    private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
+    private static final InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
 
     private Driver() {
     }
@@ -37,11 +39,11 @@ public class Driver {
                     ConfigurationReader.getProperty("browser");
 
             switch (browser) {
-                case "remote-chrome":
+                case "remote-chrome" -> {
                     try {
                         // assign your grid server address
                         String gridAddress = "174.129.57.20";
-                        URL url = new URL("http://" + gridAddress + ":4444/wd/hub");
+                        URL url = new URL("https://" + gridAddress + ":4444/wd/hub");
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName("chrome");
                         driverPool.set(new RemoteWebDriver(url, desiredCapabilities));
@@ -49,57 +51,50 @@ public class Driver {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    break;
-
-                case "headless-chrome":
+                }
+                case "headless-chrome" -> {
                     WebDriverManager.chromedriver().setup();
-                    ChromeOptions option = new ChromeOptions();
-                    option.setHeadless(true);
-                    driverPool.set(new ChromeDriver(option));
+                    ChromeOptions options = new ChromeOptions();
+                    options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+                    options.addArguments("--headless=new");
+                    driverPool.set(new ChromeDriver(options));
                     driverPool.get().manage().window().maximize();
-                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-                    break;
-
-                case "chrome":
+                    driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
+                }
+                case "chrome" -> {
                     WebDriverManager.chromedriver().setup();
                     driverPool.set(new ChromeDriver());
-                    break;
-
-                case "chrome-headless":
+                }
+                case "chrome-headless" -> {
                     WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver(new ChromeOptions().setHeadless(true)));
-                    break;
-
-                case "firefox":
+                    driverPool.set(new ChromeDriver(new ChromeOptions().addArguments("--headless=new")));
+                }
+                case "firefox" -> {
                     WebDriverManager.firefoxdriver().setup();
                     driverPool.set(new FirefoxDriver());
-                    break;
-
-                case "firefox-headless":
+                }
+                case "firefox-headless" -> {
                     WebDriverManager.firefoxdriver().setup();
-                    driverPool.set(new FirefoxDriver(new FirefoxOptions().setHeadless(true)));
-                    break;
-
-                case "ie":
+                    driverPool.set(new FirefoxDriver(new FirefoxOptions().addArguments("--headless=new")));
+                }
+                case "ie" -> {
                     if (!System.getProperty("os.name").toLowerCase().contains("windows"))
                         throw new WebDriverException("Your OS doesn't support Internet Explorer");
                     WebDriverManager.iedriver().setup();
                     driverPool.set(new InternetExplorerDriver());
-                    break;
-
-                case "edge":
+                }
+                case "edge" -> {
                     if (!System.getProperty("os.name").toLowerCase().contains("windows"))
                         throw new WebDriverException("Your OS doesn't support Edge");
                     WebDriverManager.edgedriver().setup();
                     driverPool.set(new EdgeDriver());
-                    break;
-
-                case "safari":
+                }
+                case "safari" -> {
                     if (!System.getProperty("os.name").toLowerCase().contains("mac"))
                         throw new WebDriverException("Your OS doesn't support Safari");
                     WebDriverManager.getInstance(SafariDriver.class).setup();
                     driverPool.set(new SafariDriver());
-                    break;
+                }
             }
         }
 
@@ -110,4 +105,23 @@ public class Driver {
         driverPool.get().quit();
         driverPool.remove();
     }
+    /*
+        Headless is an execution mode for Firefox and Chromium based browsers. It allows users to run automated scripts
+        in headless mode, meaning that the browser window would not be visible. In most of Selenium’s bindings there is
+        a convenience method to set this execution mode while setting the browser options. However, in Selenium 4.8.0
+        this method will be deprecated and now users need to set it through arguments when setting the browser options.
+        Before:
+            ChromeOptions options = new ChromeOptions();
+            options.setHeadless(true);
+            WebDriver driver = new ChromeDriver(options);
+            driver.get("https://selenium.dev");
+            driver.quit();
+
+       After:
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless=new");
+            WebDriver driver = new ChromeDriver(options);
+            driver.get("https://selenium.dev");
+            driver.quit();
+    */
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,14 +21,12 @@ public class BrowserUI_Utils {
      * This method is used to pause the code for given seconds
      * It is static method we can call by class name
      * BrowserUtils.sleep(3);
-     *
-     * @param seconds
      */
     public static void sleep(int seconds) {
         // 1 second = 1000 millis
         // millis = seconds*1000
         try {
-            Thread.sleep(seconds * 1000);
+            Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
             System.out.println("Exception happened in sleep method!");
@@ -40,14 +39,14 @@ public class BrowserUI_Utils {
     }
 
     public static void verifyText(String expected, WebElement webElement) {
-//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20));
 //        wait.until(ExpectedConditions.visibilityOf(webElement));
         Assert.assertTrue(webElement.isDisplayed());
         Assert.assertEquals(expected, webElement.getText());
     }
 
     public static void verifyCurrentUrl(WebElement webElement, String expectedCurrentUrl) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         webElement.click();
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
         String actualCurrentUrl = Driver.getDriver().getCurrentUrl();
@@ -73,7 +72,7 @@ public class BrowserUI_Utils {
         for (WebElement eachOption : allOptions) {
             if (eachOption.getText().equals(expectedOption)) {
     //            System.out.println(eachOption.getText());
-                WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 1);
+                WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
                 wait.until(ExpectedConditions.elementToBeClickable(eachOption));
                 eachOption.click();
                 break;
@@ -84,7 +83,6 @@ public class BrowserUI_Utils {
     /**
      * Extracts text from list of elements matching the provided locator into new List<String>
      *
-     * @param locator
      * @return list of strings
      */
     public static List<String> getElementsText(By locator) {
@@ -117,7 +115,7 @@ public class BrowserUI_Utils {
         String parentWindowHandle = Driver.getDriver().getWindowHandle();
         webElement.click();
         Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
 
         for (String windowHandle : allWindowHandles) {
             if (!windowHandle.equals(parentWindowHandle)) {
@@ -144,7 +142,7 @@ public class BrowserUI_Utils {
     }
 
     public static void waitForInvisibilityOf(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 15);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15));
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
@@ -175,9 +173,6 @@ public class BrowserUI_Utils {
     /**
      * This method will accept a group of radio buttons as a List<WebElement>
      * it will loop through the List, and click to the radio button with provided attribute value
-     *
-     * @param radioButtons
-     * @param attributeValue
      */
     public static void clickRadioButton(List<WebElement> radioButtons, String attributeValue) {
         for (WebElement each : radioButtons) {
@@ -189,8 +184,6 @@ public class BrowserUI_Utils {
 
     /**
      * This method will accept a String as expected value and verify actual URL CONTAINS the value.
-     *
-     * @param expectedInURL
      */
     public static void verifyURLContains(String expectedInURL) {
         Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains(expectedInURL));
@@ -221,8 +214,6 @@ public class BrowserUI_Utils {
 
     /**
      * Switches to new window by the exact title. Returns to original window if target title not found
-     *
-     * @param targetTitle
      */
     public static void switchToWindow(String targetTitle) {
         String origin = Driver.getDriver().getWindowHandle();
@@ -248,12 +239,10 @@ public class BrowserUI_Utils {
 
     /**
      * Performs a pause
-     *
-     * @param seconds
      */
-    public static void waitFor(int seconds) {
+    public static void waitFor(long seconds) {
         try {
-            Thread.sleep(seconds * 1000);
+            Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -261,25 +250,17 @@ public class BrowserUI_Utils {
 
     /**
      * Waits for the provided element to be visible on the page
-     *
-     * @param element
-     * @param timeToWaitInSec
-     * @return
      */
-    public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeToWaitInSec);
+    public static WebElement waitForVisibility(WebElement element, long timeToWaitInSec) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeToWaitInSec));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     /**
      * Waits for element matching the locator to be visible on the page
-     *
-     * @param locator
-     * @param timeout
-     * @return
      */
-    public static WebElement waitForVisibility(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+    public static WebElement waitForVisibility(By locator, long timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
@@ -290,27 +271,21 @@ public class BrowserUI_Utils {
      * @param timeout
      * @return
      */
-    public static WebElement waitForClickability(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+    public static WebElement waitForClickability(WebElement element, long timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     /**
      * Waits for element matching the locator to be clickable
-     *
-     * @param locator
-     * @param timeout
-     * @return
      */
-    public static WebElement waitForClickability(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+    public static WebElement waitForClickability(By locator, long timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     /**
      * waits for backgrounds processes on the browser to complete
-     *
-     * @param timeOutInSeconds
      */
     public static void waitForPageToLoad(long timeOutInSeconds) {
         ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
@@ -319,7 +294,7 @@ public class BrowserUI_Utils {
             }
         };
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeOutInSeconds);
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeOutInSeconds));
             wait.until(expectation);
         } catch (Throwable error) {
             error.printStackTrace();
@@ -498,8 +473,6 @@ public class BrowserUI_Utils {
 
     /**
      * executes the given JavaScript command on given web element
-     *
-     * @param command
      */
     public static void executeJSCommand(String command) {
         JavascriptExecutor jse = (JavascriptExecutor) Driver.getDriver();
@@ -509,9 +482,6 @@ public class BrowserUI_Utils {
     /**
      * This method will recover in case of exception after unsuccessful the click,
      * and will try to click on element again.
-     *
-     * @param by
-     * @param attempts
      */
     public static void clickWithWait(By by, int attempts) {
         int counter = 0;
@@ -536,12 +506,9 @@ public class BrowserUI_Utils {
 
     /**
      * checks that an element is present on the DOM of a page. This does not
-     * * necessarily mean that the element is visible.
-     *
-     * @param by
-     * @param time
+     *  necessarily mean that the element is visible.
      */
     public static void waitForPresenceOfElement(By by, long time) {
-        new WebDriverWait(Driver.getDriver(), time).until(ExpectedConditions.presenceOfElementLocated(by));
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time)).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }
