@@ -24,13 +24,19 @@ public abstract class BasePage {
     @FindBy(xpath = "//mat-toolbar/div/div/a")
     public List<WebElement> headerLinks;
 
-    @FindBy(xpath = "//h2[normalize-space(text())='Find Meal Planner on']")
-    public WebElement socialSectionHeader;
+    @FindBy(xpath = "//mat-toolbar//a//span[normalize-space(.)='Account']")
+    public WebElement accountDropdown;
+
+    @FindBy(xpath = "//div[@role='menu']//a[@role='menuitem']")
+    public List<WebElement> accountMenu;
+
+    @FindBy(xpath = "//div[@role='menu']//a[@role='menuitem']/span[normalize-space(.)='Log out']")
+    public WebElement logOutOption;
 
     @FindBy(xpath = "//a[@title='Instagram']")
     public WebElement instagramLink;
 
-    @FindBy(xpath = "//a[@title='Twitter']")
+    @FindBy(xpath = "//a[@title='X']")
     public WebElement twitterLink;
 
     @FindBy(xpath = "//a[@title='Facebook']")
@@ -78,13 +84,13 @@ public abstract class BasePage {
     @FindBy(xpath = "//footer//div//li/a[normalize-space(text())='Developer Hub']")
     public WebElement developerHubLink;
 
-    @FindBy(xpath = "//div/textarea")
-    public WebElement textArea;
+    @FindBy(xpath = "//mat-dialog-content//mat-form-field//div/textarea")
+    public WebElement feedbackTextArea;
 
-    @FindBy(xpath = "//button/span[normalize-space(text())='CLOSE']")
+    @FindBy(xpath = "//button/span[normalize-space(text())='Close']")
     public WebElement closeBtn;
 
-    @FindBy(xpath = "//button/span[normalize-space(text())='SUBMIT']")
+    @FindBy(xpath = "//button/span[normalize-space(text())='Submit']")
     public WebElement submitBtn;
 
     public BasePage() {
