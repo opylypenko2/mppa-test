@@ -8,6 +8,8 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import static io.restassured.RestAssured.baseURI;
 
@@ -30,7 +32,7 @@ public class Hooks {
     @Before("@ui")
     public void setUp() {
         // we put the logic that should apply to every scenario
-        Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3L));
         Driver.getDriver().manage().window().maximize();
 //        Driver.getDriver().get(ConfigurationReader.getProperty("root.url"));
     }

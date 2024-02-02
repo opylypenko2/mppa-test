@@ -18,7 +18,7 @@ public class LoginStepDefs {
 
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20));
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
         String url = ConfigurationReader.getProperty("url.ui")

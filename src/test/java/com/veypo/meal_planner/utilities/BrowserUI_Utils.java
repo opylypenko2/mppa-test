@@ -39,14 +39,14 @@ public class BrowserUI_Utils {
     }
 
     public static void verifyText(String expected, WebElement webElement) {
-//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20));
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
 //        wait.until(ExpectedConditions.visibilityOf(webElement));
         Assert.assertTrue(webElement.isDisplayed());
         Assert.assertEquals(expected, webElement.getText());
     }
 
     public static void verifyCurrentUrl(WebElement webElement, String expectedCurrentUrl) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
         webElement.click();
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
         String actualCurrentUrl = Driver.getDriver().getCurrentUrl();
@@ -72,7 +72,7 @@ public class BrowserUI_Utils {
         for (WebElement eachOption : allOptions) {
             if (eachOption.getText().equals(expectedOption)) {
     //            System.out.println(eachOption.getText());
-                WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+                WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
                 wait.until(ExpectedConditions.elementToBeClickable(eachOption));
                 eachOption.click();
                 break;
@@ -115,7 +115,7 @@ public class BrowserUI_Utils {
         String parentWindowHandle = Driver.getDriver().getWindowHandle();
         webElement.click();
         Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
 
         for (String windowHandle : allWindowHandles) {
             if (!windowHandle.equals(parentWindowHandle)) {
@@ -142,7 +142,7 @@ public class BrowserUI_Utils {
     }
 
     public static void waitForInvisibilityOf(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 

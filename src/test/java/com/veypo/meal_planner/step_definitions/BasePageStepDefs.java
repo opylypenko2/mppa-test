@@ -113,7 +113,7 @@ public class BasePageStepDefs extends BasePage {
     @Then("after clicking feedback link user should see dialog window for providing feedback")
     public void after_clicking_feedback_link_user_should_see_dialog_window_for_providing_feedback() {
         feedbackLink.click();
-        textArea.sendKeys("Awesome app");
+        feedbackTextArea.sendKeys("Awesome app");
         submitBtn.click();
         closeBtn.click();
    }

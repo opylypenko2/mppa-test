@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
         plugin = {"html:target/cucumber-report.html", //html report
                 "me.jvt.cucumber.report.PrettyReports:target/cucumber",
                 "json:target/cucumber.json",
-                "rerun:target/rerun.txt"}, // cucumber report
-        features = "src/test/resources/features",//scenarios location
-        glue = "com/veypo/meal_planner/step_definitions",// implementation
+                "rerun:target/rerun.txt"}, //cucumber report
+        features = "src/test/resources/features", //scenarios location
+        glue = "com/veypo/meal_planner/step_definitions", //implementation
         dryRun = false,
         tags = "@wip and @ui"
 )

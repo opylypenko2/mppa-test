@@ -18,9 +18,9 @@ import static org.hamcrest.Matchers.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
 
-    /* In Rest Assured we declare global variables as static to be shared by all instances of this class (every @Test method is an instance of this class)
+    /* In Rest Assured we declare global variables as static to be shared by all instances of this class
+     (every @Test method is an instance of this class)
      */
-
     protected static String location;
     protected static String recordURI;
     protected static String recipeId;
@@ -41,7 +41,6 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
       Then Status code 201 (Created)
       Then response header's "Location" value contains recipeId
      */
-
     // @Test methods must not be private or static and must not return a value.
     @Disabled
     @Order(value = 1)
@@ -103,7 +102,6 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
     public void postRecipeWithPOJOBody() {
         Recipe recipe = new Recipe();
         recipe.setName("Chocolate Cake");
-
         Content content = new Content();
         content.setDescription("Best chocolate desert ever!");
         recipe.setContent(content);
@@ -150,7 +148,6 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
          When user sends GET request to recordURI
          Then Status code 304 (Not Modified)
          */
-
         Response response =
                 given().accept("application/hal+json")
                         .header("X-MPPA-Auth-Token", accessToken)
@@ -186,7 +183,6 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
          When user sends PATCH request to recordURI
          Then Status code 204 (No Content)
          */
-
         Map<String, Object> recipe = new LinkedHashMap<>();
         Map<String, String> content = new LinkedHashMap<>();
         content.put("description", "Updated! Best chocolate desert ever! Delicious!");
@@ -225,8 +221,8 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
         Response response =
                 given().accept("application/hal+json")
                         .header("X-MPPA-Auth-Token", accessToken)
-                        .header("If-None-Match", recordVersion).//recordVersion = "\"0\""; in this case (initial version of created recipe) --> we hard code this part in order to get Status code 200, otherwise we expect to get Status code 304 (Not Modified)
-                when().get(recordURI).prettyPeek().
+                        .header("If-None-Match", recordVersion).//recordVersion = "\"0\""; in this case (initial version of created recipe) -->
+                when().get(recordURI).prettyPeek().                //we hard code this part in order to get Status code 200, otherwise we expect to get Status code 304 (Not Modified)
                 then().statusCode(200)
                         .log().body().extract().response();
 
@@ -248,7 +244,6 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
          When user sends DELETE request to recordURI
          Then Status code 204 (No Content)
          */
-
         given().contentType(ContentType.JSON)
                 .header("X-MPPA-Auth-Token", accessToken).
         when().delete(recordURI).//prettyPeek().
@@ -266,7 +261,6 @@ public class CreateRecipeFlowRestAssured extends MealPlannerTestBase {
          Then Status code 200
          Then "status": "DELETED"
          */
-
         Response response =
         given().contentType(ContentType.JSON)
                 .header("X-MPPA-Auth-Token", accessToken).

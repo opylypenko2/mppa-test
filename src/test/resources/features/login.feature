@@ -1,11 +1,11 @@
 # @regression @ui
-@wip @ui
+#@wip @ui
 Feature: Login function
 
   Background:
     Given user is on the login page
 
-  @smoke
+ # @smoke
   Scenario: Login with valid credentials
     # use step "When user logs in with valid credentials" in other
     # places (it's already implemented)

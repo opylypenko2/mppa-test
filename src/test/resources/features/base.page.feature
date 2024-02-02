@@ -1,5 +1,5 @@
 # @regression @ui
-@wip @ui
+# @wip @ui
 Feature: Base Page
 
   Background:
@@ -24,9 +24,9 @@ Feature: Base Page
 
   Scenario: User should see social network apps links
     Then the following social network apps links are displayed
-      | Instagram       |
-      | Twitter         |
+      | X               |
       | Facebook        |
+      | Instagram       |
       | YouTube         |
       | Buy Me a Coffee |
 
@@ -96,7 +96,6 @@ Feature: Base Page
   Scenario: User clicks About Us link and ends up on About Us page
     Then after user clicks about us link current url matches expected about us page url
 
-
  # @wip @ui
   Scenario: User clicks Instagram link and ends up on Instagram page
     Then after user clicks instagram link current url matches expected instagram home page url
@@ -110,11 +109,9 @@ Feature: Base Page
     Then after user clicks facebook link current url matches expected facebook home page url
 
  # @wip @ui
-  Scenario: User clicks YouTube link and ends up on
-  YouTube home page
+  Scenario: User clicks YouTube link and ends up on YouTube home page
     Then after user clicks youtube link current url matches expected youtube home page url
 
 
-  Scenario: User clicks Buy Me a Coffee link and ends up on
-  Buy Me a Coffee home page
+  Scenario: User clicks Buy Me a Coffee link and ends up on Buy Me a Coffee home page
     Then after user clicks buyMeACoffee link current url matches expected buyMeACoffee home page url

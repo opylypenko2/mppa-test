@@ -20,8 +20,7 @@ import static org.hamcrest.Matchers.is;
 
 public class CreateRecipeFlowAPIStepDefs {
 
-    /* In Cucumber there is no need to make global variables static, unlike in Rest Assured
-    */
+    /* In Cucumber there is no need to make global variables static, unlike in Rest Assured */
 
     protected String accessToken;
     protected String recordURI;

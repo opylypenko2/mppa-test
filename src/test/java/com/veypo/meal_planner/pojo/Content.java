@@ -4,7 +4,6 @@ public class Content {
 
     private String description;
 
-
     public String getDescription() {
         return description;
     }

@@ -59,7 +59,7 @@ public class Driver {
                     options.addArguments("--headless=new");
                     driverPool.set(new ChromeDriver(options));
                     driverPool.get().manage().window().maximize();
-                    driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
+                    driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(3L));
                 }
                 case "chrome" -> {
                     WebDriverManager.chromedriver().setup();
