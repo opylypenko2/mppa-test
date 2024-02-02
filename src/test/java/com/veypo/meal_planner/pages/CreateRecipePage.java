@@ -30,15 +30,14 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-image-edit-dialog//mppa-image-internet//mat-form-field//input")
     public WebElement imageUrlField;
 
-    @FindBy(xpath = "//mppa-image-edit-dialog//mppa-image-internet//button[normalize-space(.)='NEXT']")
+    @FindBy(xpath = "//mppa-image-edit-dialog//mppa-image-internet//button[normalize-space(.)='Next']")
     public WebElement imageInternetNextBtn;
 
-    @FindBy(xpath = "//span[normalize-space(text())='CROP']")
-    public WebElement cropBtn;
-// //mppa-image-edit-dialog//div[@class='mppa-image-edit-dialog-actions mppa-layout-row-start-center']//span[normalize-space(text())='CROP']
+    @FindBy(xpath = "//button[@type='submit']/span[normalize-space(text())='Crop']")
+    public WebElement imgCropBtn;
 
-    @FindBy(xpath = "//span[normalize-space(text())='SAVE']")
-    public WebElement saveBtn;
+    @FindBy(xpath = "//div[@class='mppa-image-edit-dialog-actions']//span[normalize-space(text())='Save']")
+    public WebElement imgSaveBtn;
 
     @FindBy(xpath = "//mppa-recipe-tag-section-edit//input[@role='combobox']")
     public WebElement newTagField;
@@ -46,7 +45,7 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-recipe-ingredient-section-edit//input[@type='number']")
     public WebElement servingsField;
 
-    @FindBy(xpath = "//mppa-recipe-ingredient-list-edit//span[normalize-space(.)='ADD INGREDIENT']")
+    @FindBy(xpath = "//mppa-recipe-ingredient-list-edit//button/span[normalize-space(.)='Add Ingredient']")
     public WebElement addIngredientBtn;
 
     @FindBy(xpath = "//mppa-recipe-ingredient//input")
@@ -70,13 +69,13 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-recipe-entity-section-edit//input")
     public WebElement ingredientSectionName;
 
-    @FindBy(xpath = "//mppa-recipe-ingredient-list-edit//button[normalize-space(.)='ADD SECTION']")
+    @FindBy(xpath = "//mppa-recipe-ingredient-list-edit//button[normalize-space(.)='Add Section']")
     public WebElement ingredientsAddSectionBtn;
 
-    @FindBy(xpath = "//mppa-recipe-entity-section-edit//button[normalize-space(.)='ADD']")
+    @FindBy(xpath = "//mppa-recipe-entity-section-edit//button[normalize-space(.)='Add']")
     public WebElement addSectionAddBtn;
 
-    @FindBy(xpath = "//mppa-recipe-step-list-edit//button//span[normalize-space(text())='ADD STEP']")
+    @FindBy(xpath = "//mppa-recipe-step-list-edit//button//span[normalize-space(text())='Add Step']")
     public WebElement addStepBtn;
 
     @FindBy(xpath = "//mppa-recipe-step-edit//input")
@@ -85,7 +84,7 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-recipe-step-edit//textarea")
     public WebElement directionsAdditionalInfoField;
 
-    @FindBy(xpath = "//mppa-recipe-step-edit//button//span/span[.='ADD']")
+    @FindBy(xpath = "//mppa-recipe-step-edit//button//span/span[.='Add']")
     public WebElement directionsSectionAddBtn;
 
     @FindBy(xpath = "//mppa-image-edit[@alt='Illustration of the recipe step']//span[@class='mat-mdc-button-touch-target']")
@@ -94,8 +93,7 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-recipe-tip-section-edit//mat-icon[.='navigate_next']/following-sibling::span[.='Notes / Tips']")
     public WebElement notesTipsSection;
 
-    //mppa-recipe-tip-section-edit//button//span[normalize-space(text())='ADD NOTE / TIP']
-    @FindBy(xpath = "//mppa-recipe-tip-section-edit//mppa-recipe-tip-list-edit//button[normalize-space(.)='ADD NOTE / TIP']")
+    @FindBy(xpath = "//mppa-recipe-tip-section-edit//mppa-recipe-tip-list-edit//button[normalize-space(.)='Add Note / Tip']")
     public WebElement addNoteTipBtn;
 
     @FindBy(xpath = "//mppa-recipe-tip-list-edit//mppa-recipe-tip-edit//form//input") //TODO 2 of 2
@@ -104,6 +102,6 @@ public class CreateRecipePage extends BasePage {
     @FindBy(xpath = "//mppa-image-edit[@alt='Illustration of the recipe step']//span[@class='mat-mdc-button-touch-target']")
     public WebElement tipsAddPhotoBtn;
 
-    @FindBy(xpath = "//form/mppa-button-panel[1]//button[normalize-space(.)='CREATE']")
+    @FindBy(xpath = "//form/mppa-button-panel[1]//button[normalize-space(.)='Create']")
     public WebElement createBtn;
 }

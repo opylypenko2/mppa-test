@@ -13,7 +13,7 @@ public class JDBCConnection {
         Statement statement = connection.createStatement();
 
         // ResultSet will store data after execution. It stores only data (there is no table info ) :
-        ResultSet resultSet = statement.executeQuery("select * from DEPARTMENTS where MANAGER_ID is not null ");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM departments WHERE manager_id IS NOT null ");
         // resultSet.getInt(index)  --> returns integer. Indexes start from 1 in SQL. They refer to column position.
 
         // DatabaseMetaData  --> This is information about database itself :
@@ -40,7 +40,7 @@ public class JDBCConnection {
     @Test
     public void test1() {
         DB_Utils.createConnection();
-        ResultSet rs = DB_Utils.runQuery("select * from accounts");
+        ResultSet rs = DB_Utils.runQuery("SELECT * FROM accounts");
         int rowCount = DB_Utils.getRowCount();
         System.out.println("rowCount = " + rowCount);
     }

@@ -7,10 +7,10 @@ import java.util.List;
 
 public class MyRecipesPage extends BasePage {
 
-    @FindBy(xpath = "//button//span[normalize-space(text())='ADD RECIPE']")
+    @FindBy(xpath = "//button//span[normalize-space(text())='Add Recipe']")
     public WebElement addRecipeMenu;
 
-    @FindBy(xpath = "//span[normalize-space(text())='CREATE NEW']")
+    @FindBy(xpath = "//span[normalize-space(text())='Create New']")
     public WebElement createNewRecipeOption;
 
     @FindBy(xpath = "//mppa-recipe-workspace-active//input")
