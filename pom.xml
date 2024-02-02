@@ -13,9 +13,9 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <selenium-java.version>4.15.0</selenium-java.version>
+        <selenium-java.version>4.17.0</selenium-java.version>
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-        <webdrivermanager.version>5.6.2</webdrivermanager.version>
+        <webdrivermanager.version>5.6.3</webdrivermanager.version>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <cucumber-java.version>7.14.0</cucumber-java.version>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
