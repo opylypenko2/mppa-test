@@ -1,7 +1,10 @@
 package com.veypo.meal_planner.pages;
 
+import com.veypo.meal_planner.utilities.BrowserUI_Utils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class LoginPage extends BasePage {
 
@@ -32,6 +35,7 @@ public class LoginPage extends BasePage {
     }
 
     public void logout() {
-//TODO
+        accountDropdown.click();
+        logOutOption.click();
     }
 }
