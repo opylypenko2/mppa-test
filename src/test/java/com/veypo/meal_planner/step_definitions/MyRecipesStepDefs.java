@@ -1,9 +1,6 @@
 package com.veypo.meal_planner.step_definitions;
 
-import com.veypo.meal_planner.pages.CreateRecipePage;
-import com.veypo.meal_planner.pages.MyRecipesPage;
-import com.veypo.meal_planner.pages.UpdateRecipePage;
-import com.veypo.meal_planner.pages.ViewRecipePage;
+import com.veypo.meal_planner.pages.*;
 import com.veypo.meal_planner.utilities.BrowserUI_Utils;
 import com.veypo.meal_planner.utilities.ConfigurationReader;
 import com.veypo.meal_planner.utilities.Driver;
@@ -19,6 +16,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class MyRecipesStepDefs {
 
@@ -26,7 +24,11 @@ public class MyRecipesStepDefs {
     ViewRecipePage viewRecipePage = new ViewRecipePage();
     CreateRecipePage createRecipePage = new CreateRecipePage();
     UpdateRecipePage updateRecipePage = new UpdateRecipePage();
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30L));
+    LoginPage loginPage = new LoginPage();
+
+    // Generate a random UUID :
+    public String uniqueRecipeName = UUID.randomUUID().toString();
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5L));
 
     @When("user clicks my recipes link")
     public void user_clicks_my_recipes_link() {
@@ -44,14 +46,15 @@ public class MyRecipesStepDefs {
                 ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("create.recipe.page.path"));
     }
 
-    @When("user enters new recipe name {string}")
-    public void user_enters_new_recipe_name(String recipeName) {
-        createRecipePage.recipeNameField.sendKeys(recipeName);
+    @When("user enters new recipe name")
+    public void user_enters_new_recipe_name() {
+        createRecipePage.recipeNameField.sendKeys(uniqueRecipeName);
     }
 
     @And("user enters recipe description {string}")
     public void user_enters_recipe_description(String recipeDescription) {
         createRecipePage.recipeDescriptionField.sendKeys(recipeDescription);
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @When("user can see and select following allergy options")
@@ -63,31 +66,41 @@ public class MyRecipesStepDefs {
             Assert.assertFalse(each.isSelected());
             each.click();
         }
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @When("user clicks recipe select image button and chooses internet option")
     public void user_clicks_recipe_select_image_button_and_chooses_internet_option() {
         createRecipePage.recipeSelectImageBtn.click();
         createRecipePage.internetOption.click();
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @And("user enters image url {string} and clicks next button")
     public void user_enters_image_url_and_clicks_next_button(String imgUrl) {
         createRecipePage.imageUrlField.sendKeys(imgUrl);
         createRecipePage.imageInternetNextBtn.click();
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @And("user clicks crop button and then clicks save button")
     public void user_clicks_crop_button_and_then_clicks_save_button() {
-        createRecipePage.cropBtn.click();
-        createRecipePage.saveBtn.click();
+        createRecipePage.imgCropBtn.click();
+        createRecipePage.imgSaveBtn.click();
+        //    BrowserUI_Utils.sleep(3);
     }
 
-    @And("user enters new tag {string} and servings number {string} and clicks add ingredient button")
+    @And("user enters new tag {string} and servings number {string}")
     public void user_enters_new_tag_and_servings_number_and_clicks_add_ingredient_button(String newTag, String servingsNum) {
         createRecipePage.newTagField.sendKeys(newTag);
         createRecipePage.servingsField.sendKeys(servingsNum);
+        //    BrowserUI_Utils.sleep(3);
+    }
+
+    @And("user clicks add ingredient button")
+    public void user_clicks_add_ingredient_button() {
         wait.until(ExpectedConditions.elementToBeClickable(createRecipePage.addIngredientBtn));
+        BrowserUI_Utils.sleep(1);
         createRecipePage.addIngredientBtn.click();
     }
 
@@ -96,6 +109,7 @@ public class MyRecipesStepDefs {
         createRecipePage.ingredientInputField.sendKeys(ingredient);
         createRecipePage.ingredientAdditionalInfoField.sendKeys(additionalInfo);
         createRecipePage.ingredientQuantityField.sendKeys(quantity);
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @And("user selects measure option {string} from measure component and clicks add button")
@@ -104,6 +118,7 @@ public class MyRecipesStepDefs {
         BrowserUI_Utils.selectMenuOption(measureOption, createRecipePage.measureMenuOptions);
         wait.until(ExpectedConditions.elementToBeClickable(createRecipePage.ingredientsSectionAddBtn));
         createRecipePage.ingredientsSectionAddBtn.click();
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @When("user clicks add step button")
@@ -115,6 +130,7 @@ public class MyRecipesStepDefs {
     public void user_clicks_step_add_image_button_and_chooses_internet_option() {
         createRecipePage.stepAddImageBtn.click();
         createRecipePage.internetOption.click();
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @When("user enters following directions section inputs")
@@ -127,21 +143,22 @@ public class MyRecipesStepDefs {
         for (int i = 0; i < createRecipePage.directionsSectionInputs.size(); i++) {
             createRecipePage.directionsSectionInputs.get(i).sendKeys(allValues.get(i));
         }
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @And("user enters additional information {string} and clicks add button")
     public void user_enters_additional_information_and_clicks_add_button(String additionalInfo) {
         createRecipePage.directionsAdditionalInfoField.sendKeys(additionalInfo);
         createRecipePage.directionsSectionAddBtn.click();
-        //       BrowserUtils.sleep(10);
+        //    BrowserUI_Utils.sleep(3);
     }
 
-    @When("user clicks notes tips section and then clicks add note tip button")
-    public void user_clicks_notes_tips_section_and_then_clicks_add_note_tip_button() {
-        createRecipePage.notesTipsSection.click();
-        createRecipePage.addNoteTipBtn.click();
-//        BrowserUtils.sleep(5);
-    }
+//    @When("user clicks notes tips section and then clicks add note tip button")
+//    public void user_clicks_notes_tips_section_and_then_clicks_add_note_tip_button() {
+//        createRecipePage.notesTipsSection.click();
+//        createRecipePage.addNoteTipBtn.click();
+//        BrowserUI_Utils.sleep(3);
+//    }
 
     @And("user clicks create button")
     public void user_clicks_create_button() {
@@ -151,13 +168,53 @@ public class MyRecipesStepDefs {
     @Then("recently created recipe is displayed")
     public void recently_created_recipe_is_displayed() {
         Assert.assertTrue(myRecipesPage.recentlyCreatedRecipe.isDisplayed());
+        //    BrowserUI_Utils.sleep(3);
     }
 
-    @Then("after user clicks view {string} option in recipe card the recipe title matches expected recipe title {string}")
-    public void after_user_clicks_view_option_in_recipe_card_the_recipe_title_matches_expected_recipe_title(String expectedElementText, String expectedRecipeTitle) {
+    @Then("user enters recipe name into my recipes search field")
+    public void user_enters_recipe_name_into_my_recipes_search_field() {
+        myRecipesPage.myRecipesSearchField.sendKeys(uniqueRecipeName);
+        BrowserUI_Utils.sleep(3);
+        Assert.assertTrue(myRecipesPage.savedRecipe.isDisplayed());
+    }
+
+    @Then("after user clicks view {string} option in recipe card the recipe title matches expected recipe title")
+    public void
+    after_user_clicks_view_option_in_recipe_card_the_recipe_title_matches_expected_recipe_title(String expectedElementText) {
         BrowserUI_Utils.selectMenuOption(expectedElementText, myRecipesPage.cardActions);
-//        BrowserUtils.sleep(5);
-        Assert.assertEquals(expectedRecipeTitle, myRecipesPage.recipeTitle.getText());
+        BrowserUI_Utils.sleep(3);
+        Assert.assertEquals(uniqueRecipeName, viewRecipePage.recipeTitle.getText());
+    }
+
+    @When("user selects edit {string} option in recipe view")
+    public void user_selects_edit_option_in_recipe_view(String expectedElementText) {
+        viewRecipePage.threeDotsMenuBtn.click();
+        BrowserUI_Utils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
+        //    BrowserUI_Utils.sleep(3);
+    }
+
+    @And("user enters recipe description {string} to update recipe")
+    public void user_enters_recipe_description_to_update_recipe(String recipeDescription) {
+        // to replace the previous input rather than adding to it, we should first clear the input field
+        // before sending the new keys:
+        // 1. Clear the existing value in the input field using the clear() method.
+        // 2. Send the new keys to the input field using the sendKeys() method.
+        updateRecipePage.recipeDescriptionField.clear();
+        updateRecipePage.recipeDescriptionField.sendKeys(recipeDescription);
+        BrowserUI_Utils.sleep(3);
+    }
+
+    @And("user saves updated recipe")
+    public void user_saves_updated_recipe() {
+        updateRecipePage.updateRecipeSaveBtn.click();
+        BrowserUI_Utils.sleep(3);
+    }
+
+    @Then("recipe description matches expected updated recipe description {string}")
+    public void recipe_description_matches_expected_updated_recipe_description(String expectedUpdatedRecipeDescription) {
+        Assert.assertEquals(expectedUpdatedRecipeDescription, viewRecipePage.recipeDescription.getText());
+        //to get the value of fields(textarea in this case), we need to fetch the value using the getAttribute() method:
+        // Assert.assertEquals(expectedUpdatedRecipeDescription, createRecipePage.recipeDescriptionField.getAttribute("value"));
     }
 
     @Then("user selects delete {string} option in recipe view and deletes the recipe")
@@ -165,38 +222,12 @@ public class MyRecipesStepDefs {
         viewRecipePage.threeDotsMenuBtn.click();
         BrowserUI_Utils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
         viewRecipePage.confirmationDeleteOption.click();
-//        BrowserUtils.sleep(5);
+        BrowserUI_Utils.sleep(3);
     }
 
-    @And("user enters recipe name {string} into my recipes search field and related saved recipe is displayed")
-    public void user_enters_recipe_name_into_my_recipes_search_field_and_related_saved_recipe_is_displayed(String expectedRecipeName) {
-        myRecipesPage.myRecipesSearchField.sendKeys(expectedRecipeName);
-        Assert.assertTrue(myRecipesPage.savedRecipe.isDisplayed());
-        Assert.assertEquals(expectedRecipeName, myRecipesPage.savedRecipe.getText());
-    }
-
-    @Then("user selects edit {string} option in recipe view")
-    public void user_selects_edit_option_in_recipe_view(String expectedElementText) {
-        viewRecipePage.threeDotsMenuBtn.click();
-        BrowserUI_Utils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
-    }
-
-    @And("user saves updated recipe")
-    public void user_saves_updated_recipe() {
-        createRecipePage.saveBtn.click();
-    }
-
-    @Then("recipe description matches expected updated recipe description {string}")
-    public void recipe_description_matches_expected_updated_recipe_description(String expectedUpdatedRecipeDescription) {
-        //to get the value of fields(textarea in this case), we need to fetch the value using the getAttribute() method:
-        Assert.assertEquals(expectedUpdatedRecipeDescription, createRecipePage.recipeDescriptionField.getAttribute("value"));
-    }
-
-    @Then("user selects delete option in update recipe and deletes the recipe")
-    public void user_selects_delete_option_in_update_recipe_and_deletes_the_recipe() {
-        updateRecipePage.threeDotsMenuBtn.click();
-        updateRecipePage.deleteRecipeOption.click();
-        viewRecipePage.confirmationDeleteOption.click();
+    @Then("user logs out")
+    public void user_logs_out() {
+        loginPage.logout();
     }
 
 //---------------------------------------------------------------------
