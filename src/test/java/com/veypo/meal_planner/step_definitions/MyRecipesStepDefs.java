@@ -174,7 +174,7 @@ public class MyRecipesStepDefs {
     @Then("user enters recipe name into my recipes search field")
     public void user_enters_recipe_name_into_my_recipes_search_field() {
         myRecipesPage.myRecipesSearchField.sendKeys(uniqueRecipeName);
-        BrowserUI_Utils.sleep(3);
+        //    BrowserUI_Utils.sleep(3);
         Assert.assertTrue(myRecipesPage.savedRecipe.isDisplayed());
     }
 
@@ -182,7 +182,7 @@ public class MyRecipesStepDefs {
     public void
     after_user_clicks_view_option_in_recipe_card_the_recipe_title_matches_expected_recipe_title(String expectedElementText) {
         BrowserUI_Utils.selectMenuOption(expectedElementText, myRecipesPage.cardActions);
-        BrowserUI_Utils.sleep(3);
+        //     BrowserUI_Utils.sleep(3);
         Assert.assertEquals(uniqueRecipeName, viewRecipePage.recipeTitle.getText());
     }
 
@@ -201,13 +201,13 @@ public class MyRecipesStepDefs {
         // 2. Send the new keys to the input field using the sendKeys() method.
         updateRecipePage.recipeDescriptionField.clear();
         updateRecipePage.recipeDescriptionField.sendKeys(recipeDescription);
-        BrowserUI_Utils.sleep(3);
+        //     BrowserUI_Utils.sleep(3);
     }
 
     @And("user saves updated recipe")
     public void user_saves_updated_recipe() {
         updateRecipePage.updateRecipeSaveBtn.click();
-        BrowserUI_Utils.sleep(3);
+        //    BrowserUI_Utils.sleep(3);
     }
 
     @Then("recipe description matches expected updated recipe description {string}")
@@ -222,7 +222,7 @@ public class MyRecipesStepDefs {
         viewRecipePage.threeDotsMenuBtn.click();
         BrowserUI_Utils.selectMenuOption(expectedElementText, viewRecipePage.threeDotsMenuAllOptions);
         viewRecipePage.confirmationDeleteOption.click();
-        BrowserUI_Utils.sleep(3);
+        //     BrowserUI_Utils.sleep(3);
     }
 
     @Then("user logs out")
