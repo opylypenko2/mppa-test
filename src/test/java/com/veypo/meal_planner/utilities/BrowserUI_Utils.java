@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -257,8 +256,6 @@ public class BrowserUI_Utils {
 
     /**
      * Moves the mouse to given element
-     *
-     * @param element on which to hover
      */
     public static void hover(WebElement element) {
         Actions actions = new Actions(Driver.getDriver());
@@ -294,10 +291,6 @@ public class BrowserUI_Utils {
 
     /**
      * Waits for provided element to be clickable
-     *
-     * @param element
-     * @param timeout
-     * @return
      */
     public static WebElement waitForClickability(WebElement element, long timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
@@ -316,7 +309,7 @@ public class BrowserUI_Utils {
      * waits for backgrounds processes on the browser to complete
      */
     public static void waitForPageToLoad(long timeOutInSeconds) {
-        ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
+        ExpectedCondition<Boolean> expectation = new ExpectedCondition<>() {
             public Boolean apply(WebDriver driver) {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
             }
@@ -331,9 +324,7 @@ public class BrowserUI_Utils {
 
     /**
      * Verifies whether the element matching the provided locator is displayed on page
-     *
-     * @param by
-     * @throws AssertionError if the element matching the provided locator is not found or not displayed
+     * throws AssertionError if the element matching the provided locator is not found or not displayed
      */
     public static void verifyElementDisplayed(By by) {
         try {
@@ -346,9 +337,7 @@ public class BrowserUI_Utils {
 
     /**
      * Verifies whether the element matching the provided locator is NOT displayed on page
-     *
-     * @param by
-     * @throws AssertionError the element matching the provided locator is displayed
+     * throws AssertionError the element matching the provided locator is displayed
      */
     public static void verifyElementNotDisplayed(By by) {
         try {
@@ -360,9 +349,7 @@ public class BrowserUI_Utils {
 
     /**
      * Verifies whether the element is displayed on page
-     *
-     * @param element
-     * @throws AssertionError if the element is not found or not displayed
+     * throws AssertionError if the element is not found or not displayed
      */
     public static void verifyElementDisplayed(WebElement element) {
         try {
@@ -376,8 +363,6 @@ public class BrowserUI_Utils {
 
     /**
      * Waits for element to be not stale
-     *
-     * @param element
      */
     public static void waitForStaleElement(WebElement element) {
         int y = 0;
@@ -406,8 +391,6 @@ public class BrowserUI_Utils {
 
     /**
      * Clicks on an element using JavaScript
-     *
-     * @param element
      */
     public static void clickWithJS(WebElement element) {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -416,8 +399,6 @@ public class BrowserUI_Utils {
 
     /**
      * Scrolls down to an element using JavaScript
-     *
-     * @param element
      */
     public static void scrollToElement(WebElement element) {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -425,8 +406,6 @@ public class BrowserUI_Utils {
 
     /**
      * Performs double click action on an element
-     *
-     * @param element
      */
     public static void doubleClick(WebElement element) {
         new Actions(Driver.getDriver()).doubleClick(element).build().perform();
@@ -434,10 +413,6 @@ public class BrowserUI_Utils {
 
     /**
      * Changes the HTML attribute of a Web Element to the given value using JavaScript
-     *
-     * @param element
-     * @param attributeName
-     * @param attributeValue
      */
     public static void setAttribute(WebElement element, String attributeName, String attributeValue) {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attributeName, attributeValue);
@@ -445,8 +420,6 @@ public class BrowserUI_Utils {
 
     /**
      * Highlights an element by changing its background and border color
-     *
-     * @param element
      */
     public static void highlight(WebElement element) {
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
@@ -456,9 +429,6 @@ public class BrowserUI_Utils {
 
     /**
      * Checks or unchecks given checkbox
-     *
-     * @param element
-     * @param check
      */
     public static void selectCheckBox(WebElement element, boolean check) {
         if (check) {
@@ -474,9 +444,6 @@ public class BrowserUI_Utils {
 
     /**
      * attempts to click on provided element until given time runs out
-     *
-     * @param element
-     * @param timeout
      */
     public static void clickWithTimeOut(WebElement element, int timeout) {
         for (int i = 0; i < timeout; i++) {
@@ -491,8 +458,6 @@ public class BrowserUI_Utils {
 
     /**
      * executes the given JavaScript command on given web element
-     *
-     * @param element
      */
     public static void executeJSCommand(WebElement element, String command) {
         JavascriptExecutor jse = (JavascriptExecutor) Driver.getDriver();
