@@ -1,4 +1,4 @@
-@wip @ui
+#@wip @ui
 Feature: Create a new recipe flow
 
   Background:
@@ -54,26 +54,3 @@ Feature: Create a new recipe flow
     Examples:
       | recipeDescription1                              | recipeDescription2             | newTag        | servingsNumber | ingredient | ingredientAdditionalInfo  | quantity | measureOption | stepAdditionalInfo     | recipeImageUrl                                                                                       | stepImageUrl                                                                                      |
       | Perfect with fish sticks, crab or salmon cakes. | Every chocolate lover's dream. | KETO-FRIENDLY | 4              | Mayonnaise | Hellman's Real Mayonnaise | 1        | Cup           | Refrigerate when done. | https://www.wholesomeyum.com/wp-content/uploads/2021/02/wholesomeyum-keto-tartar-sauce-recipe-14.jpg | https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/02/Best-Guten-Free-Recipes-3.jpg |
-
-
-
-#  Scenario Outline: User can update recipe
-#    When user clicks login link
-#    And user logs in with valid credentials
-#    When user clicks my recipes link
-#    And user clicks add recipe menu
-#    And after user chooses create new recipe option from a menu current url matches expected create recipe page url
-#    When user enters new recipe name
-#    And user clicks create button
-#    Then user enters recipe name into my recipes search field and related saved recipe is displayed
-#    Then after user clicks view "View" option in recipe card the recipe title matches expected recipe title
-#    When user selects edit "Edit" option in recipe view
-#    And user enters recipe description "<recipeDescription>" to update recipe
-#    And user saves updated recipe
-#    Then after user clicks view "View" option in recipe card the recipe title matches expected recipe title
-#    Then recipe description matches expected updated recipe description "<recipeDescription>"
-#    Then user selects delete "Delete" option in recipe view and deletes the recipe
-#
-#    Examples:
-#      | recipeDescription              |
-#      | Every chocolate lover's dream. |

@@ -8,10 +8,19 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Map;
 
 public class BasePageStepDefs extends BasePage {
+
+//    @DataTableType
+//    public Link linkEntry(Map<String, String> entry) {
+//        return new Link(entry.get("expectedLinkText"), entry.get("expectedPath"));
+//    }
 
     @Given("user is on the home page")
     public void user_is_on_the_home_page() {
@@ -51,10 +60,28 @@ public class BasePageStepDefs extends BasePage {
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
 
-    @Then("the following footer links are displayed")
-    public void the_following_footer_links_are_displayed(List<String> expectedFooterLinks) {
-        List<String> actualFooterLinks = BrowserUI_Utils.getElementsText(footerLinks);
-        Assert.assertEquals(expectedFooterLinks, actualFooterLinks);
+    @Then("the following footer links are displayed and reachable")
+    public void the_following_footer_links_are_displayed_and_reachable(Map<String, String> expectedLinksTextAndPath) throws MalformedURLException {
+
+        for (Map.Entry<String, String> eachEntry : expectedLinksTextAndPath.entrySet()) {
+            String expectedLinkText = eachEntry.getKey();
+            //    System.out.println("expectedLinkText = " + expectedLinkText);
+
+            String expectedPath = eachEntry.getValue();
+            //    System.out.println("expectedPath = " + expectedPath);
+
+            String locatorXpath = String.format("//footer//div//li/a[normalize-space(text())='%s']", expectedLinkText);
+            //    System.out.println("locatorXpath = " + locatorXpath);
+
+            WebElement element = Driver.getDriver().findElement(By.xpath(locatorXpath));
+            Assert.assertNotEquals(locatorXpath, element, null);
+            Assert.assertTrue(element.isDisplayed());
+
+            String originalUrl = Driver.getDriver().getCurrentUrl();
+            element.click();
+            BrowserUI_Utils.verifyCurrentUrlPath(expectedPath);
+            Driver.getDriver().get(originalUrl);
+        }
     }
 
     @Then("after user clicks my recipes link current url matches expected my recipes page url")
@@ -68,60 +95,12 @@ public class BasePageStepDefs extends BasePage {
                 signUpLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("signup.page.path"));
     }
 
-    @Then("after user clicks terms and conditions link current url matches expected terms and conditions page url")
-    public void after_user_clicks_terms_and_conditions_link_current_url_matches_expected_terms_and_conditions_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                termsLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("terms.page.path"));
-    }
-
-    @Then("after user clicks privacy policy link current url matches expected privacy policy page url")
-    public void after_user_clicks_privacy_policy_link_current_url_matches_expected_privacy_policy_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                privacyLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("privacy.page.path"));
-    }
-
-    @Then("after user clicks cookies policy link current url matches expected cookies policy page url")
-    public void after_user_clicks_cookies_policy_link_current_url_matches_expected_cookies_policy_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                cookiesLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("cookies.page.path"));
-    }
-
-    @Then("after user clicks third party licenses link current url matches expected third party licenses page url")
-    public void after_user_clicks_third_party_licenses_link_current_url_matches_expected_third_party_licenses_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                thirdPartyLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("thirdparty.page.path"));
-    }
-
-    @Then("after user clicks demo link current url matches expected demo page url")
-    public void after_user_clicks_demo_link_current_url_matches_expected_demo_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                demoLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("demo.page.path"));
-    }
-
-    @Then("after user clicks help center link current url matches expected help center page url")
-    public void after_user_clicks_help_center_link_current_url_matches_expected_help_center_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                helpCenterLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("help.page.path"));
-    }
-
-    @Then("after user clicks developer hub link current url matches expected developers page url")
-    public void after_user_clicks_developer_hub_link_current_url_matches_expected_developers_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                developerHubLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("developers.page.path"));
-    }
-
     @Then("after clicking feedback link user should see dialog window for providing feedback")
     public void after_clicking_feedback_link_user_should_see_dialog_window_for_providing_feedback() {
         feedbackLink.click();
         feedbackTextArea.sendKeys("Awesome app");
         submitBtn.click();
         closeBtn.click();
-   }
-
-    @Then("after user clicks about us link current url matches expected about us page url")
-    public void after_user_clicks_about_us_link_current_url_matches_expected_about_us_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(
-                aboutUsLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("about.page.path"));
     }
 
     @Then("after user clicks instagram link current url matches expected instagram home page url")

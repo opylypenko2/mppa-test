@@ -37,18 +37,17 @@ Feature: Base Page
       | Product        |
       | VEYPO LLC      |
 
-
+  @wip @ui
   Scenario: User should see the following footer links
-    Then the following footer links are displayed
-      | Terms and Conditions |
-      | Privacy Policy       |
-      | Cookies Policy       |
-      | Third Party Licenses |
-      | Demo                 |
-      | Help Center          |
-      | Developer Hub        |
-      | Feedback             |
-      | About Us             |
+    Then the following footer links are displayed and reachable
+      | Terms and Conditions | /legal/terms     |
+      | Privacy Policy       | /legal/privacy   |
+      | Cookies Policy       | /legal/cookies   |
+      | Third Party Licenses | /legal/3rd-party |
+      | Demo                 | /demo            |
+      | Help Center          | /help            |
+      | Developer Hub        | /developers      |
+      | About Us             | /company/about   |
 
 
   Scenario: User clicks My Recipes link and ends up on My Recipes page
@@ -61,40 +60,8 @@ Feature: Base Page
     Then after user clicks signup link current url matches expected signup page url
 
 
-  Scenario: User clicks Terms and Conditions link and ends up on Terms and Conditions page
-    Then after user clicks terms and conditions link current url matches expected terms and conditions page url
-
-
-  Scenario: User clicks Privacy Policy link and ends up on Privacy Policy page
-    Then after user clicks privacy policy link current url matches expected privacy policy page url
-
-
-  Scenario: User clicks Cookies Policy link and ends up on Cookies Policy page
-    Then after user clicks cookies policy link current url matches expected cookies policy page url
-
-
-  Scenario: User clicks Third Party Licenses link and ends up on Third Party Licenses page
-    Then after user clicks third party licenses link current url matches expected third party licenses page url
-
-
-  Scenario: User clicks Demo link and ends up on Demo page
-    Then after user clicks demo link current url matches expected demo page url
-
-#  @wip @ui
-  Scenario: User clicks Help Center link and ends up on Help Center page
-    Then after user clicks help center link current url matches expected help center page url
-
-# @wip @ui
-  Scenario: User clicks Developer Hub link and ends up on Developers page
-    Then after user clicks developer hub link current url matches expected developers page url
-
-
   Scenario: User clicks Feedback link and should see the dialog window for providing feedback
     Then after clicking feedback link user should see dialog window for providing feedback
-
-
-  Scenario: User clicks About Us link and ends up on About Us page
-    Then after user clicks about us link current url matches expected about us page url
 
  # @wip @ui
   Scenario: User clicks Instagram link and ends up on Instagram page

@@ -8,6 +8,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,25 +57,51 @@ public class BrowserUI_Utils {
         Assert.assertEquals(expectedCurrentUrl, actualCurrentUrl);
     }
 
+    public static void verifyWebElementsTextAndCurrentUrlPath(List<WebElement> list, String expectedLinkText, String expectedPath) throws MalformedURLException {
+        for (WebElement webElement : list) {
+            Assert.assertTrue(webElement.isDisplayed());
+            String actualLinkText = webElement.getText();
+            Assert.assertEquals("Wrong Text", expectedLinkText, actualLinkText);
+            webElement.click();
+            verifyCurrentUrlPath(expectedPath);
+        }
+    }
+
+    public static void verifyCurrentUrlPath(String expectedPath) throws MalformedURLException {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
+        String host = ConfigurationReader.getProperty("url.ui");
+        String expectedCurrentUrl = host + expectedPath;
+        //    System.out.println("URL: " + expectedCurrentUrl);
+        wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
+        String actualCurrentUrl = Driver.getDriver().getCurrentUrl();
+        URL url = new URL(actualCurrentUrl);
+        // Get path
+        String actualPath = url.getPath();
+        //    System.out.println("Path: " + actualPath);
+        Assert.assertEquals(expectedPath, actualPath);
+    }
+
     /**
      * return a list of string from a list of elements
      *
-     * @param list of webElements
+     * @param webElements of webElements
      * @return list of string
      */
-    public static List<String> getElementsText(List<WebElement> list) {
+    public static List<String> getElementsText(List<WebElement> webElements) {
         List<String> elemTexts = new ArrayList<>();
-        for (WebElement el : list) {
-            Assert.assertTrue(el.isDisplayed());
-            elemTexts.add(el.getText());
+
+        for (WebElement element : webElements) {
+            Assert.assertTrue(element.isDisplayed());
+            elemTexts.add(element.getText());
         }
+
         return elemTexts;
     }
 
     public static void selectMenuOption(String expectedOption, List<WebElement> allOptions) {
         for (WebElement eachOption : allOptions) {
             if (eachOption.getText().equals(expectedOption)) {
-    //            System.out.println(eachOption.getText());
+                //            System.out.println(eachOption.getText());
                 WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
                 wait.until(ExpectedConditions.elementToBeClickable(eachOption));
                 eachOption.click();
@@ -506,7 +536,7 @@ public class BrowserUI_Utils {
 
     /**
      * checks that an element is present on the DOM of a page. This does not
-     *  necessarily mean that the element is visible.
+     * necessarily mean that the element is visible.
      */
     public static void waitForPresenceOfElement(By by, long time) {
         new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time)).until(ExpectedConditions.presenceOfElementLocated(by));
