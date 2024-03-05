@@ -21,7 +21,7 @@ public abstract class BasePage {
     @FindBy(xpath = "//span[normalize-space(text())='Sign up']")
     public WebElement signUpLink;
 
-    @FindBy(xpath = "//mat-toolbar/div/div/a")
+    @FindBy(xpath = "//header//a")
     public List<WebElement> headerLinks;
 
     @FindBy(xpath = "//mat-toolbar//a//span[normalize-space(.)='Account']")

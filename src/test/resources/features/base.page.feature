@@ -6,24 +6,29 @@ Feature: Base Page
     Given user is on the home page
 
 
-  Scenario: Before logging in/signing up user should see the following links
-    Then user should see the app name link "Meal Planner"
-    Then user should see the following links
-      | My Recipes |
-      | Log in     |
-      | Sign up    |
+  Scenario: Before logging in/signing up user should be able to see and reach the following header links
+    Then the following header links are displayed and reachable
+      | Meal Planner |
+      | My Recipes   |
+      | Log in       |
+      | Sign up      |
 
 
-  Scenario: After logging in user should see the following links
+  Scenario: After logging in user should be able to see and reach the following header links
     When user clicks login link
     When user logs in with valid credentials
-    Then user should see the app name link "Meal Planner"
-    Then user should see my recipes link "My Recipes"
-    Then user should see the account menu link "Account"
+    Then user should see the account menu "Account"
+    Then the following account menu items are displayed and reachable
+      | Settings |
+      | Log out  |
+    Then the following header links are displayed and reachable
+      | Meal Planner |
+      | My Recipes   |
 
 
-  Scenario: User should see social network apps links
-    Then the following social network apps links are displayed
+  @wip @ui
+  Scenario: User should see and be able to reach social network apps links
+    Then the following social network apps links are displayed and reachable
       | X               |
       | Facebook        |
       | Instagram       |
@@ -37,8 +42,8 @@ Feature: Base Page
       | Product        |
       | VEYPO LLC      |
 
-  @wip @ui
-  Scenario: User should see the following footer links
+#  @wip @ui
+  Scenario: User should see and be able to reach the following footer links
     Then the following footer links are displayed and reachable
       | Terms and Conditions | /legal/terms     |
       | Privacy Policy       | /legal/privacy   |

@@ -113,11 +113,11 @@ public class BrowserUI_Utils {
      * @return list of strings
      */
     public static List<String> getElementsText(By locator) {
-        List<WebElement> elems = Driver.getDriver().findElements(locator);
+        List<WebElement> elements = Driver.getDriver().findElements(locator);
         List<String> elemTexts = new ArrayList<>();
 
-        for (WebElement el : elems) {
-            elemTexts.add(el.getText());
+        for (WebElement element : elements) {
+            elemTexts.add(element.getText());
         }
         return elemTexts;
     }
@@ -131,9 +131,9 @@ public class BrowserUI_Utils {
     public static List<String> getElementsAttribute(List<WebElement> list, String attribute) {
         List<String> elementAttributes = new ArrayList<>();
 
-        for (WebElement el : list) {
-            Assert.assertTrue(el.isDisplayed());
-            elementAttributes.add(el.getAttribute(attribute));
+        for (WebElement element : list) {
+            Assert.assertTrue(element.isDisplayed());
+            elementAttributes.add(element.getAttribute(attribute));
         }
         return elementAttributes;
     }

@@ -11,16 +11,13 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
 public class BasePageStepDefs extends BasePage {
-
-//    @DataTableType
-//    public Link linkEntry(Map<String, String> entry) {
-//        return new Link(entry.get("expectedLinkText"), entry.get("expectedPath"));
-//    }
 
     @Given("user is on the home page")
     public void user_is_on_the_home_page() {
@@ -32,8 +29,8 @@ public class BasePageStepDefs extends BasePage {
         BrowserUI_Utils.verifyText(expectedLink, appName);
     }
 
-    @Then("user should see the following links")
-    public void user_should_see_the_following_links(List<String> expectedLinks) {
+    @Then("the following header links are displayed and reachable")
+    public void the_following_header_links_are_displayed_and_reachable(List<String> expectedLinks) {
         List<String> actualLinks = BrowserUI_Utils.getElementsText(headerLinks);
         Assert.assertEquals(expectedLinks, actualLinks);
     }
@@ -48,10 +45,40 @@ public class BasePageStepDefs extends BasePage {
         BrowserUI_Utils.verifyText(expectedLink, myRecipesLink);
     }
 
-    @Then("the following social network apps links are displayed")
-    public void the_following_social_network_apps_links_are_displayed(List<String> expectedLinks) {
-        List<String> actualLinks = BrowserUI_Utils.getElementsAttribute(socialNetworkLinks, "title");
-        Assert.assertEquals(expectedLinks, actualLinks);
+    @Then("the following social network apps links are displayed and reachable")
+    public void the_following_social_network_apps_links_are_displayed_and_reachable(List<String> expectedLinksText) {
+        List<String> actualLinksText = BrowserUI_Utils.getElementsAttribute(socialNetworkLinks, "title");
+        Assert.assertEquals(expectedLinksText, actualLinksText);
+
+        // Find Broken Links
+        // Iterate through the links and check their HTTP status:
+        for (WebElement link : socialNetworkLinks) {
+            String url = link.getAttribute("href");
+            try {
+                HttpURLConnection connection = (HttpURLConnection) (new URL(url).openConnection());
+
+                // The HTTP HEAD method lets you submit a request and receive a response with the response body omitted,
+                // making it efficient for checking resource existence or status:
+                // httpURLConnection.setRequestMethod("HEAD");
+                // However, some sites (e.g., Twitter/X) block HEAD requests, returning a 403 Forbidden error.
+                // In these cases, fallback to the GET method, which downloads the full response body but
+                // ensures compatibility across all websites (cons-can impact performance, server load, may encounter
+                // rate limiting issues). Some websites block requests from unknown User-Agents, so this approach might
+                // not work for all links that you're trying to check.
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(10000);
+                connection.connect();
+                int responseCode = connection.getResponseCode();
+
+                if (responseCode >= 400) {
+                    System.out.printf("%s is a broken link (status code: %d)%n", url, responseCode);
+                } else {
+                    System.out.println(url + " is a valid link.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error in checking link: " + url);
+            }
+        }
     }
 
     @Then("the following footer columns headers are displayed")

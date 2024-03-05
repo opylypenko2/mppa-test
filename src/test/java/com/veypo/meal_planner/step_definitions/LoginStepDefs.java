@@ -82,8 +82,8 @@ public class LoginStepDefs {
         Assert.assertEquals(expectedCurrentUrl, actualCurrentUrl);
     }
 
-    @Then("user should see the account menu link {string}")
-    public void user_should_see_the_account_menu_link(String expectedLink) {
+    @Then("user should see the account menu {string}")
+    public void user_should_see_the_account_menu(String expectedLink) {
         BrowserUI_Utils.verifyText(expectedLink, homePage.accountMenu);
     }
 
