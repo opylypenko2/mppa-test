@@ -96,6 +96,7 @@ public class BrowserUI_Utils {
     }
 
     public static void selectMenuOption(String expectedOption, List<WebElement> allOptions) {
+
         for (WebElement eachOption : allOptions) {
             if (eachOption.getText().equals(expectedOption)) {
                 //            System.out.println(eachOption.getText());
@@ -138,9 +139,9 @@ public class BrowserUI_Utils {
         return elementAttributes;
     }
 
-    public static void getWindowHandlesAndVerifyNewWindowUrl(WebElement webElement, String expectedUrl) {
+    public static void getWindowHandlesAndVerifyNewWindowUrl(WebElement webelement, String expectedUrl) {
         String parentWindowHandle = Driver.getDriver().getWindowHandle();
-        webElement.click();
+        webelement.click();
         Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
 

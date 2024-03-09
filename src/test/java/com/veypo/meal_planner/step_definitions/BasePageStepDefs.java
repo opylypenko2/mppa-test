@@ -10,12 +10,14 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.util.*;
 
 public class BasePageStepDefs extends BasePage {
 
@@ -29,10 +31,16 @@ public class BasePageStepDefs extends BasePage {
         BrowserUI_Utils.verifyText(expectedLink, appName);
     }
 
+    @Then("the following account menu items are displayed and reachable")
+    public void the_following_account_menu_items_are_displayed_and_reachable() {
+        //TODO
+    }
+
     @Then("the following header links are displayed and reachable")
     public void the_following_header_links_are_displayed_and_reachable(List<String> expectedLinks) {
         List<String> actualLinks = BrowserUI_Utils.getElementsText(headerLinks);
         Assert.assertEquals(expectedLinks, actualLinks);
+        //TODO
     }
 
     @When("user clicks login link")
@@ -46,39 +54,79 @@ public class BasePageStepDefs extends BasePage {
     }
 
     @Then("the following social network apps links are displayed and reachable")
-    public void the_following_social_network_apps_links_are_displayed_and_reachable(List<String> expectedLinksText) {
-        List<String> actualLinksText = BrowserUI_Utils.getElementsAttribute(socialNetworkLinks, "title");
-        Assert.assertEquals(expectedLinksText, actualLinksText);
+    public void the_following_social_network_apps_links_are_displayed_and_reachable(Map<String, String> expectedLinksTextAndUrl) {
+        Map<String, String> actualLinksTextAndUrl = new LinkedHashMap<>();
 
-        // Find Broken Links
-        // Iterate through the links and check their HTTP status:
+        List<String> actualLinksUrls = new LinkedList<>();
+        List<String> expectedLinksUrls = new LinkedList<>(expectedLinksTextAndUrl.values());
+        System.out.println("expectedLinksUrls = " + expectedLinksUrls);
+
         for (WebElement link : socialNetworkLinks) {
-            String url = link.getAttribute("href");
-            try {
-                HttpURLConnection connection = (HttpURLConnection) (new URL(url).openConnection());
+            Assert.assertTrue(link.isDisplayed());
+            actualLinksTextAndUrl.put(link.getAttribute("title"), link.getAttribute("href"));
 
-                // The HTTP HEAD method lets you submit a request and receive a response with the response body omitted,
-                // making it efficient for checking resource existence or status:
-                // httpURLConnection.setRequestMethod("HEAD");
-                // However, some sites (e.g., Twitter/X) block HEAD requests, returning a 403 Forbidden error.
-                // In these cases, fallback to the GET method, which downloads the full response body but
-                // ensures compatibility across all websites (cons-can impact performance, server load, may encounter
-                // rate limiting issues). Some websites block requests from unknown User-Agents, so this approach might
-                // not work for all links that you're trying to check.
-                connection.setRequestMethod("GET");
-                connection.setConnectTimeout(10000);
-                connection.connect();
-                int responseCode = connection.getResponseCode();
+            // Get the current window handle:
+            String originalWindowHandle = Driver.getDriver().getWindowHandle();
+            // Open a new window:
+            link.click();
+            // Get all window handles:
+            Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
+            System.out.println("allWindowHandles = " + allWindowHandles);
 
-                if (responseCode >= 400) {
-                    System.out.printf("%s is a broken link (status code: %d)%n", url, responseCode);
-                } else {
-                    System.out.println(url + " is a valid link.");
+            // Switch to the new window:
+            for (String windowHandle : allWindowHandles) {
+                if (!originalWindowHandle.equals(windowHandle)) {
+                    Driver.getDriver().switchTo().window(windowHandle);
+                    break;
                 }
-            } catch (Exception e) {
-                System.out.println("Error in checking link: " + url);
             }
+
+            // Perform actions on the new window:
+            String actualLinkUrl = Driver.getDriver().getCurrentUrl();
+            actualLinksUrls.add(actualLinkUrl);
+
+            // Close the current window
+            Driver.getDriver().close();
+
+            // Switch back to the original window:
+            Driver.getDriver().switchTo().window(originalWindowHandle);
         }
+
+        System.out.println("actualLinksTextAndUrl = " + actualLinksTextAndUrl);
+        Assert.assertEquals(expectedLinksTextAndUrl, actualLinksTextAndUrl);
+        System.out.println("actualLinksUrls = " + actualLinksUrls);
+        Assert.assertEquals(expectedLinksUrls, actualLinksUrls);
+
+
+//        // Find Broken Links
+//        // Iterate through the links and check their HTTP status:
+//        for (WebElement link : socialNetworkLinks) {
+//            String url = link.getAttribute("href");
+//            try {
+//                HttpURLConnection connection = (HttpURLConnection) (new URL(url).openConnection());
+//
+//                // The HTTP HEAD method lets you submit a request and receive a response with the response body omitted,
+//                // making it efficient for checking resource existence or status:
+//                // httpURLConnection.setRequestMethod("HEAD");
+//                // However, some sites (e.g., Twitter/X) block HEAD requests, returning a 403 Forbidden error.
+//                // In these cases, fallback to the GET method, which downloads the full response body but
+//                // ensures compatibility across all websites (cons-can impact performance, server load, may encounter
+//                // rate limiting issues). Some websites block requests from unknown User-Agents, so this approach might
+//                // not work for all links that you're trying to check.
+//                connection.setRequestMethod("GET");
+//                connection.setConnectTimeout(10000);
+//                connection.connect();
+//                int responseCode = connection.getResponseCode();
+//
+//                if (responseCode >= 400) {
+//                    System.out.printf("%s is a broken link (status code: %d)%n", url, responseCode);
+//                } else {
+//                    System.out.println(url + " is a valid link.");
+//                }
+//            } catch (Exception e) {
+//                System.out.println("Error in checking link: " + url);
+//            }
+//        }
     }
 
     @Then("the following footer columns headers are displayed")
@@ -129,34 +177,9 @@ public class BasePageStepDefs extends BasePage {
         submitBtn.click();
         closeBtn.click();
     }
-
-    @Then("after user clicks instagram link current url matches expected instagram home page url")
-    public void after_user_clicks_instagram_link_current_url_matches_expected_instagram_home_page_url() {
-        BrowserUI_Utils.getWindowHandlesAndVerifyNewWindowUrl(instagramLink,
-                ConfigurationReader.getProperty("instagram.url"));
-    }
-
-    @Then("after user clicks twitter link current url matches expected twitter home page url")
-    public void after_user_clicks_twitter_link_current_url_matches_expected_twitter_home_page_url() {
-        BrowserUI_Utils.getWindowHandlesAndVerifyNewWindowUrl(twitterLink,
-                ConfigurationReader.getProperty("twitter.url"));
-    }
-
-    @Then("after user clicks facebook link current url matches expected facebook home page url")
-    public void after_user_clicks_facebook_link_current_url_matches_expected_facebook_home_page_url() {
-        BrowserUI_Utils.getWindowHandlesAndVerifyNewWindowUrl(facebookLink,
-                ConfigurationReader.getProperty("facebook.url"));
-    }
-
-    @Then("after user clicks youtube link current url matches expected youtube home page url")
-    public void after_user_clicks_youtube_link_current_url_matches_expected_youtube_home_page_url() {
-        BrowserUI_Utils.getWindowHandlesAndVerifyNewWindowUrl(youTubeLink,
-                ConfigurationReader.getProperty("youtube.url"));
-    }
-
-    @Then("after user clicks buyMeACoffee link current url matches expected buyMeACoffee home page url")
-    public void after_user_clicks_buyMeACoffee_link_current_url_matches_expected_buyMeACoffee_home_page_url() {
-        BrowserUI_Utils.getWindowHandlesAndVerifyNewWindowUrl(buyMeACoffeeLink,
-                ConfigurationReader.getProperty("buymeacoffee.url"));
-    }
 }
+
+//  To wait for the page to load when navigating to a new page via URL:
+//        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+//        WebDriver driver = new ChromeDriver(chromeOptions);
