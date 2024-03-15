@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -58,23 +59,32 @@ public class BrowserUI_Utils {
         for (WebElement webElement : list) {
             Assert.assertTrue(webElement.isDisplayed());
             String actualLinkText = webElement.getText();
-            Assert.assertEquals("Wrong Text", expectedLinkText, actualLinkText);
+            System.out.println("actualLinkText = " + actualLinkText);
+            Assert.assertEquals("Text does not match", expectedLinkText, actualLinkText);
+            String originalUrl = Driver.getDriver().getCurrentUrl();
+            System.out.println("originalUrl = " + originalUrl);
             webElement.click();
             verifyCurrentUrlPath(expectedPath);
+            Driver.getDriver().get(originalUrl);
         }
     }
 
     public static void verifyCurrentUrlPath(String expectedPath) throws MalformedURLException {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
+
         String host = ConfigurationReader.getProperty("url.ui");
         String expectedCurrentUrl = host + expectedPath;
-        //    System.out.println("URL: " + expectedCurrentUrl);
+        System.out.println("Expected URL: " + expectedCurrentUrl);
+
         wait.until(ExpectedConditions.urlToBe(expectedCurrentUrl));
+
         String actualCurrentUrl = Driver.getDriver().getCurrentUrl();
+        System.out.println("actualCurrentUrl = " + actualCurrentUrl);
+
         URL url = new URL(actualCurrentUrl);
         // Get path
         String actualPath = url.getPath();
-        //    System.out.println("Path: " + actualPath);
+        System.out.println("Actual Path: " + actualPath);
         Assert.assertEquals(expectedPath, actualPath);
     }
 

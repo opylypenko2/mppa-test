@@ -8,7 +8,7 @@ Feature: Create a new recipe flow
   Scenario Outline: User can create, update and delete a recipe
     When user clicks login link
     And user logs in with valid credentials
-    When user clicks my recipes link
+    Then after user clicks my recipes link current url matches expected my recipes page url
     And user clicks add recipe menu
     And after user chooses create new recipe option from a menu current url matches expected create recipe page url
     When user enters new recipe name
@@ -22,9 +22,9 @@ Feature: Create a new recipe flow
     When user clicks recipe select image button and chooses internet option
     And user enters image url "<recipeImageUrl>" and clicks next button
     And user clicks crop button and then clicks save button
-    And user enters new tag "<newTag>" and servings number "<servingsNumber>"
+    And user enters new tag "<newTag>" and servings number <servingsNumber>
     And user clicks add ingredient button
-    And user enters ingredient "<ingredient>", additional information "<ingredientAdditionalInfo>" and quantity "<quantity>"
+    And user enters ingredient "<ingredient>", additional information "<ingredientAdditionalInfo>" and quantity <quantity>
     And user selects measure option "<measureOption>" from measure component and clicks add button
     When user clicks add step button
     When user clicks step add image button and chooses internet option

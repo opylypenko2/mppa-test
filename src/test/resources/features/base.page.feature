@@ -5,15 +5,15 @@ Feature: Base Page
   Background:
     Given user is on the home page
 
+#  @wip @ui
+  Scenario: Before logging in/signing up user should be able to see the following header links
+    Then the following header links are displayed and corresponding path matches expected path
+      | Meal Planner | /        |
+      | My Recipes   | /recipes |
+      | Log in       | /login   |
+      | Sign up      | /signup  |
 
-  Scenario: Before logging in/signing up user should be able to see and reach the following header links
-    Then the following header links are displayed and reachable
-      | Meal Planner |
-      | My Recipes   |
-      | Log in       |
-      | Sign up      |
-
-
+  @wip @ui
   Scenario: After logging in user should be able to see and reach the following header links
     When user clicks login link
     When user logs in with valid credentials
@@ -21,13 +21,13 @@ Feature: Base Page
     Then the following account menu items are displayed and reachable
       | Settings |
       | Log out  |
-    Then the following header links are displayed and reachable
+    Then the following header links are displayed and corresponding path matches expected path
       | Meal Planner |
       | My Recipes   |
+# TODO
 
-
-  @wip @ui
-  Scenario: User should see and be able to reach social network apps links
+#  @wip @ui
+  Scenario: User should be able to see and reach social network apps links
     Then the following social network apps links are displayed and reachable
       | X               | https://twitter.com/                     |
       | Facebook        | https://www.facebook.com/                |
@@ -53,12 +53,6 @@ Feature: Base Page
       | Help Center          | /help            |
       | Developer Hub        | /developers      |
       | About Us             | /company/about   |
-
-
-  Scenario: User clicks My Recipes link and ends up on My Recipes page
-    When user clicks login link
-    When user logs in with valid credentials
-    Then after user clicks my recipes link current url matches expected my recipes page url
 
 
   Scenario: User clicks Signup link and ends up on Signup page

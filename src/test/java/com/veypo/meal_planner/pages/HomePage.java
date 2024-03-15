@@ -5,6 +5,4 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
 
-    @FindBy(xpath = "//span[.='Account']")
-    public WebElement accountMenu;
 }

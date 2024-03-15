@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class MyRecipesStepDefs {
+public class MyRecipesStepDefs extends BasePage{
 
     MyRecipesPage myRecipesPage = new MyRecipesPage();
     ViewRecipePage viewRecipePage = new ViewRecipePage();
@@ -30,9 +30,9 @@ public class MyRecipesStepDefs {
     public String uniqueRecipeName = UUID.randomUUID().toString();
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5L));
 
-    @When("user clicks my recipes link")
-    public void user_clicks_my_recipes_link() {
-        myRecipesPage.myRecipesLink.click();
+    @Then("after user clicks my recipes link current url matches expected my recipes page url")
+    public void after_user_clicks_my_recipes_link_current_url_matches_expected_my_recipes_page_url() {
+        BrowserUI_Utils.verifyCurrentUrl(myRecipesLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("my.recipes.page.path"));
     }
 
     @When("user clicks add recipe menu")
@@ -90,10 +90,10 @@ public class MyRecipesStepDefs {
         //    BrowserUI_Utils.sleep(3);
     }
 
-    @And("user enters new tag {string} and servings number {string}")
-    public void user_enters_new_tag_and_servings_number_and_clicks_add_ingredient_button(String newTag, String servingsNum) {
+    @And("user enters new tag {string} and servings number {int}")
+    public void user_enters_new_tag_and_servings_number_and_clicks_add_ingredient_button(String newTag, Integer servingsNum) {
         createRecipePage.newTagField.sendKeys(newTag);
-        createRecipePage.servingsField.sendKeys(servingsNum);
+        createRecipePage.servingsField.sendKeys(Integer.toString(servingsNum));
         //    BrowserUI_Utils.sleep(3);
     }
 
@@ -104,11 +104,11 @@ public class MyRecipesStepDefs {
         createRecipePage.addIngredientBtn.click();
     }
 
-    @And("user enters ingredient {string}, additional information {string} and quantity {string}")
-    public void user_enters_ingredient_additional_information_and_quantity(String ingredient, String additionalInfo, String quantity) {
+    @And("user enters ingredient {string}, additional information {string} and quantity {int}")
+    public void user_enters_ingredient_additional_information_and_quantity(String ingredient, String additionalInfo, Integer quantity) {
         createRecipePage.ingredientInputField.sendKeys(ingredient);
         createRecipePage.ingredientAdditionalInfoField.sendKeys(additionalInfo);
-        createRecipePage.ingredientQuantityField.sendKeys(quantity);
+        createRecipePage.ingredientQuantityField.sendKeys(Integer.toString(quantity));
         //    BrowserUI_Utils.sleep(3);
     }
 

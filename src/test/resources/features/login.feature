@@ -14,7 +14,7 @@ Feature: Login function
     Then login button is enabled
     Then user clicks login button
     Then the current url matches expected url
-    Then user should see the account menu link "Account"
+    Then user should see the account menu "Account"
 
   Scenario Outline: Login with invalid credentials
     When user enters invalid credentials

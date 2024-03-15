@@ -21,26 +21,39 @@ import java.util.*;
 
 public class BasePageStepDefs extends BasePage {
 
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
+
     @Given("user is on the home page")
     public void user_is_on_the_home_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url.ui"));
     }
 
-    @Then("user should see the app name link {string}")
-    public void user_should_see_the_app_name_link(String expectedLink) {
-        BrowserUI_Utils.verifyText(expectedLink, appName);
-    }
+    @Then("the following header links are displayed and corresponding path matches expected path")
+    public void the_following_header_links_are_displayed_and_corresponding_path_matches_expected_path(Map<String, String> expectedLinksTextAndPath) throws MalformedURLException {
+        List<String> expectedLinksTexts = new LinkedList<>(expectedLinksTextAndPath.keySet());
+//        System.out.println("expectedLinksTexts = " + expectedLinksTexts);
 
-    @Then("the following account menu items are displayed and reachable")
-    public void the_following_account_menu_items_are_displayed_and_reachable() {
-        //TODO
-    }
+        List<String> actualLinksTexts = BrowserUI_Utils.getElementsText(headerLinks);
+//        System.out.println("actualLinksTexts = " + actualLinksTexts);
+        Assert.assertEquals(expectedLinksTexts, actualLinksTexts);
 
-    @Then("the following header links are displayed and reachable")
-    public void the_following_header_links_are_displayed_and_reachable(List<String> expectedLinks) {
-        List<String> actualLinks = BrowserUI_Utils.getElementsText(headerLinks);
-        Assert.assertEquals(expectedLinks, actualLinks);
-        //TODO
+        List<String> expectedLinksPaths = new LinkedList<>(expectedLinksTextAndPath.values());
+//        System.out.println("expectedLinksPaths = " + expectedLinksPaths);
+
+        List<String> actualLinksUrls = BrowserUI_Utils.getElementsAttribute(headerLinks, "href");
+//        System.out.println("actualLinksUrls = " + actualLinksUrls);
+
+        List<String> actualLinksPaths = new LinkedList<>();
+
+        for (String actualLinkUrl : actualLinksUrls) {
+            URL url = new URL(actualLinkUrl);
+            // Get path
+            String actualLinkPath = url.getPath();
+            actualLinksPaths.add(actualLinkPath);
+        }
+
+//        System.out.println("actualLinksPaths = " + actualLinksPaths);
+        Assert.assertEquals(expectedLinksPaths, actualLinksPaths);
     }
 
     @When("user clicks login link")
@@ -48,9 +61,9 @@ public class BasePageStepDefs extends BasePage {
         loginLink.click();
     }
 
-    @Then("user should see my recipes link {string}")
-    public void user_should_see_my_recipes_link(String expectedLink) {
-        BrowserUI_Utils.verifyText(expectedLink, myRecipesLink);
+    @Then("the following account menu items are displayed and reachable")
+    public void the_following_account_menu_items_are_displayed_and_reachable() {
+        //TODO
     }
 
     @Then("the following social network apps links are displayed and reachable")
@@ -59,7 +72,7 @@ public class BasePageStepDefs extends BasePage {
 
         List<String> actualLinksUrls = new LinkedList<>();
         List<String> expectedLinksUrls = new LinkedList<>(expectedLinksTextAndUrl.values());
-        System.out.println("expectedLinksUrls = " + expectedLinksUrls);
+//        System.out.println("expectedLinksUrls = " + expectedLinksUrls);
 
         for (WebElement link : socialNetworkLinks) {
             Assert.assertTrue(link.isDisplayed());
@@ -71,7 +84,7 @@ public class BasePageStepDefs extends BasePage {
             link.click();
             // Get all window handles:
             Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
-            System.out.println("allWindowHandles = " + allWindowHandles);
+//            System.out.println("allWindowHandles = " + allWindowHandles);
 
             // Switch to the new window:
             for (String windowHandle : allWindowHandles) {
@@ -92,9 +105,9 @@ public class BasePageStepDefs extends BasePage {
             Driver.getDriver().switchTo().window(originalWindowHandle);
         }
 
-        System.out.println("actualLinksTextAndUrl = " + actualLinksTextAndUrl);
+//        System.out.println("actualLinksTextAndUrl = " + actualLinksTextAndUrl);
         Assert.assertEquals(expectedLinksTextAndUrl, actualLinksTextAndUrl);
-        System.out.println("actualLinksUrls = " + actualLinksUrls);
+//        System.out.println("actualLinksUrls = " + actualLinksUrls);
         Assert.assertEquals(expectedLinksUrls, actualLinksUrls);
 
 
@@ -157,11 +170,6 @@ public class BasePageStepDefs extends BasePage {
             BrowserUI_Utils.verifyCurrentUrlPath(expectedPath);
             Driver.getDriver().get(originalUrl);
         }
-    }
-
-    @Then("after user clicks my recipes link current url matches expected my recipes page url")
-    public void after_user_clicks_my_recipes_link_current_url_matches_expected_my_recipes_page_url() {
-        BrowserUI_Utils.verifyCurrentUrl(myRecipesLink, ConfigurationReader.getProperty("url.ui") + ConfigurationReader.getProperty("my.recipes.page.path"));
     }
 
     @Then("after user clicks signup link current url matches expected signup page url")

@@ -1,5 +1,6 @@
 package com.veypo.meal_planner.step_definitions;
 
+import com.veypo.meal_planner.pages.BasePage;
 import com.veypo.meal_planner.pages.HomePage;
 import com.veypo.meal_planner.pages.LoginPage;
 import com.veypo.meal_planner.utilities.BrowserUI_Utils;
@@ -14,11 +15,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginStepDefs {
+public class LoginStepDefs extends BasePage{
 
     LoginPage loginPage = new LoginPage();
-    HomePage homePage = new HomePage();
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3L));
+
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
         String url = ConfigurationReader.getProperty("url.ui")
@@ -84,7 +85,7 @@ public class LoginStepDefs {
 
     @Then("user should see the account menu {string}")
     public void user_should_see_the_account_menu(String expectedLink) {
-        BrowserUI_Utils.verifyText(expectedLink, homePage.accountMenu);
+        BrowserUI_Utils.verifyText(expectedLink, accountDropdown);
     }
 
     @When("user enters invalid credentials")
