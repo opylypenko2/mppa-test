@@ -14,17 +14,17 @@ Feature: Base Page
       | Sign up      | /signup  |
 
   @wip @ui
-  Scenario: After logging in user should be able to see and reach the following header links
+  Scenario: After logging in user should be able to see the following header links
     When user clicks login link
     When user logs in with valid credentials
-    Then user should see the account menu "Account"
-    Then the following account menu items are displayed and reachable
-      | Settings |
-      | Log out  |
-    Then the following header links are displayed and corresponding path matches expected path
+    Then the following header links are displayed and enabled
       | Meal Planner |
       | My Recipes   |
-# TODO
+    Then user should see the account menu "Account"
+    Then the following account menu items are displayed and enabled
+      | first.last@veypo.com |
+      | Settings             |
+      | Log out              |
 
 #  @wip @ui
   Scenario: User should be able to see and reach social network apps links
@@ -35,7 +35,7 @@ Feature: Base Page
       | YouTube         | https://www.youtube.com/                 |
       | Buy Me a Coffee | https://www.buymeacoffee.com/mealplanner |
 
-
+#  @wip @ui
   Scenario: User should see the footer columns headers
     Then the following footer columns headers are displayed
       | Legal Policies |

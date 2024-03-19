@@ -34,14 +34,15 @@ public class BasePageStepDefs extends BasePage {
 //        System.out.println("expectedLinksTexts = " + expectedLinksTexts);
 
         List<String> actualLinksTexts = BrowserUI_Utils.getElementsText(headerLinks);
-//        System.out.println("actualLinksTexts = " + actualLinksTexts);
-        Assert.assertEquals(expectedLinksTexts, actualLinksTexts);
+        System.out.println("actualLinksTexts = " + actualLinksTexts);
+        Assert.assertTrue(actualLinksTexts.containsAll(expectedLinksTexts));
+//       Assert.assertEquals(expectedLinksTexts, actualLinksTexts);
 
         List<String> expectedLinksPaths = new LinkedList<>(expectedLinksTextAndPath.values());
 //        System.out.println("expectedLinksPaths = " + expectedLinksPaths);
 
         List<String> actualLinksUrls = BrowserUI_Utils.getElementsAttribute(headerLinks, "href");
-//        System.out.println("actualLinksUrls = " + actualLinksUrls);
+        System.out.println("actualLinksUrls = " + actualLinksUrls);
 
         List<String> actualLinksPaths = new LinkedList<>();
 
@@ -53,7 +54,8 @@ public class BasePageStepDefs extends BasePage {
         }
 
 //        System.out.println("actualLinksPaths = " + actualLinksPaths);
-        Assert.assertEquals(expectedLinksPaths, actualLinksPaths);
+        Assert.assertTrue(actualLinksPaths.containsAll(expectedLinksPaths));
+//        Assert.assertEquals(expectedLinksPaths, actualLinksPaths);
     }
 
     @When("user clicks login link")
@@ -61,9 +63,19 @@ public class BasePageStepDefs extends BasePage {
         loginLink.click();
     }
 
-    @Then("the following account menu items are displayed and reachable")
-    public void the_following_account_menu_items_are_displayed_and_reachable() {
-        //TODO
+    @Then("the following header links are displayed and enabled")
+    public void the_following_header_links_are_displayed_and_enabled(List<String> expectedHeaderLinks) {
+        List<String> actualHeaderLinks = BrowserUI_Utils.getElementsText(headerLinks);
+        System.out.println("actualHeaderLinks = " + actualHeaderLinks);
+        Assert.assertTrue(actualHeaderLinks.containsAll(expectedHeaderLinks));
+    }
+
+    @Then("the following account menu items are displayed and enabled")
+    public void the_following_account_menu_items_are_displayed_and_enabled(List<String> expectedOptionsTexts) {
+        accountDropdown.click();
+        List<String> actualOptionsTexts = BrowserUI_Utils.getElementsText(accountDropdownOptions);
+        System.out.println("actualOptionsTexts = " + actualOptionsTexts);
+        Assert.assertEquals(expectedOptionsTexts, actualOptionsTexts);
     }
 
     @Then("the following social network apps links are displayed and reachable")

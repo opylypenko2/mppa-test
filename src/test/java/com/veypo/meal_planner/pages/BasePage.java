@@ -30,6 +30,9 @@ public abstract class BasePage {
     @FindBy(xpath = "//div[@role='menu']//a[@role='menuitem']")
     public List<WebElement> accountMenu;
 
+    @FindBy(xpath = "//div[@id='cdk-overlay-0']//a")
+    public List<WebElement> accountDropdownOptions;
+
     @FindBy(xpath = "//div[@role='menu']//a[@role='menuitem']/span[normalize-space(.)='Log out']")
     public WebElement logOutOption;
 

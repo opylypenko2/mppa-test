@@ -99,6 +99,7 @@ public class BrowserUI_Utils {
 
         for (WebElement element : webElements) {
             Assert.assertTrue(element.isDisplayed());
+            Assert.assertTrue(element.isEnabled());
             elemTexts.add(element.getText());
         }
 
